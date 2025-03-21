@@ -26,3 +26,32 @@ interface CompaniesApi {
     data?: Object;
     message?: string;
 }
+
+// models/Booking.js
+interface BookingModel {
+    apptDate: Date;
+    user: string;
+    company: string;
+    createdAt: Date;
+}
+
+// models/Company.js
+interface CompanyModel {
+    _id: string;
+    name: string;
+    address: string;
+    website: string;
+    description: string;
+    telephone: string;
+}
+
+// models/User.js
+interface UserModel {
+    _id: string;
+    name: string;
+    telephone: string;
+    email: string;
+    password?: string;
+    role: string;
+    createdAt: Date;
+}
