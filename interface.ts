@@ -7,14 +7,15 @@ interface AuthenticationUserApi {
 
 interface UserApi {
     success: boolean;
-    data?: Object;
+    token?: string;
+    data?: UserModel;
 }
 
 // controllers/bookings.js
 interface BookingApi {
     success: boolean;
     count?: number;
-    data?: Object;
+    data?: BookingModel[] | BookingModel;
     message?: string;
 }
 
@@ -23,7 +24,7 @@ interface CompaniesApi {
     success: boolean;
     count?: number;
     pagination?: Object;
-    data?: Object;
+    data?: CompanyModel[] | CompanyModel;
     message?: string;
 }
 
