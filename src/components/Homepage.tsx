@@ -6,7 +6,7 @@ export default function Homepage() {
     <div className="bg-[#fdfcf5] flex flex-col items-center">
       {/* Header Section */}
       <header className="text-center py-6">
-        <h1 className="text-5xl font-bold mt-5">Job Fair 2022</h1>
+        <h1 className="text-4xl font-bold mt-5">Job Fair 2022</h1>
         <p className="text-gray-600 mt-3 text-sm">
           Connect with leading companies and schedule interviews during our job fair from May 10-13, 2022.
         </p>

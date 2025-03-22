@@ -1,6 +1,7 @@
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { HomeIcon, Building, CircleUser,UserCog } from "lucide-react";
+import { HomeIcon, Building, CircleUser, UserCog } from "lucide-react";
+import Link from "next/link";
 
 export default function Topmenu() {
   const { data: session } = useSession();
@@ -18,22 +19,23 @@ export default function Topmenu() {
           <span className="text-xl font-bold text-[#8a7e66]">JobFair</span>
           <ul className="menu menu-horizontal px-1 space-x-4">
             <li>
-              <a className="flex items-center">
+              <Link href="/" className="flex items-center">
+                {/* Use Link to navigate to the homepage */}
                 <HomeIcon size={24} />
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="flex items-center">
+            <Link href="/" className="flex items-center">
                 <Building size={24} />
                 Companies
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="flex items-center">
+            <Link href="/" className="flex items-center">
                 <CircleUser size={24} />
                 My Profile
-              </a>
+              </Link>
             </li>
             {/* Show Manage Company if user is admin */}
             {session?.user?.role === "admin" && (
