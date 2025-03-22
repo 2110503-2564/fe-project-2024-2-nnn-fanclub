@@ -11,11 +11,11 @@ export default function Topmenu() {
       {/* Left Section */}
       <div className="flex-1">
         <div className="flex items-center space-x-2">
-          <div className="avatar">
-            <div className="w-10 rounded-full bg-neutral-focus text-neutral-content">
-              <span>NNN</span>
-            </div>
+          {/* avartar */}
+          <div className="flex items-center justify-center rounded-full bg-a w-24 h-24">
+            <span className="text-center font-semibold">NNN</span>
           </div>
+
           <span className="text-xl font-bold text-[#8a7e66]">JobFair</span>
           <ul className="menu menu-horizontal px-1 space-x-4">
             <li>
@@ -26,13 +26,13 @@ export default function Topmenu() {
               </Link>
             </li>
             <li>
-            <Link href="/" className="flex items-center">
+              <Link href="/" className="flex items-center">
                 <Building size={24} />
                 Companies
               </Link>
             </li>
             <li>
-            <Link href="/" className="flex items-center">
+              <Link href="/" className="flex items-center">
                 <CircleUser size={24} />
                 My Profile
               </Link>
