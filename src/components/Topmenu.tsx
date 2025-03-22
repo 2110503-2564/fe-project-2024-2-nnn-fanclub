@@ -73,9 +73,11 @@ export default function Topmenu() {
               >
                 Login
               </button>
-              <button className="btn text-[#ffffff] bg-[#8a7e66]">
+              <Link className="btn text-[#ffffff] bg-[#8a7e66]"
+                href={"/auth/register"}
+              >
                 Register
-              </button>
+              </Link>
             </>
           )}
         </div>
