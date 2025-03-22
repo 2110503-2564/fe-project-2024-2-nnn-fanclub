@@ -6,7 +6,7 @@ export default function Topmenu() {
   const { data: session } = useSession();
 
   return (
-    <div className="navbar bg-[#fcfbf7] shadow-md" color="fcfbf7">
+    <div className="navbar bg-[#fcfbf7] shadow-md border-b" color="fcfbf7">
       {/* Left Section */}
       <div className="flex-1">
         <div className="flex items-center space-x-2">

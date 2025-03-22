@@ -37,7 +37,7 @@ interface BookingModel {
 }
 
 // models/Company.js
-export interface CompanyModel {
+interface CompanyModel {
     _id: string;
     name: string;
     address: string;
@@ -47,7 +47,7 @@ export interface CompanyModel {
 }
 
 // models/User.js
-export interface UserModel {
+interface UserModel {
     _id: string;
     name: string;
     telephone: string;

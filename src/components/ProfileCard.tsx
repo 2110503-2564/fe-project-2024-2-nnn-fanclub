@@ -1,5 +1,4 @@
 import React from "react";
-import { UserModel } from "../../interface";
 import { CircleUserRound } from "lucide-react";
 
 interface ProfileCardProps {
