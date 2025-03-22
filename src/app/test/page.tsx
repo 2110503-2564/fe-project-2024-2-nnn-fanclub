@@ -1,5 +1,6 @@
 "use client";
 
+import Topmenu from "@/components/Topmenu";
 import CompanyCard from "@/components/CompanyCard";
 import ProfileCard from "@/components/ProfileCard";
 
@@ -23,9 +24,15 @@ export default function Home() {
   };
 
   return (
-    <div className="p-4 flex flex-col items-center gap-6">
-      <CompanyCard company={mockCompany} />
-      <ProfileCard user={mockUser} />
+    <div className="flex flex-col min-h-screen">
+      {/* Topmenu */}
+      <Topmenu />
+
+      {/* Page Content */}
+      <div className="p-4 flex flex-col items-center gap-6 flex-grow">
+        <CompanyCard company={mockCompany} />
+        <ProfileCard user={mockUser} />
+      </div>
     </div>
   );
 }

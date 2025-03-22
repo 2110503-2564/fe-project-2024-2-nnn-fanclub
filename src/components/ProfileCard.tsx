@@ -1,5 +1,6 @@
 import React from "react";
 import { UserModel } from "../../interface";
+import { CircleUserRound } from "lucide-react";
 
 interface ProfileCardProps {
   user: UserModel;
@@ -7,15 +8,13 @@ interface ProfileCardProps {
 
 export default function ProfileCard({ user }: ProfileCardProps) {
   return (
-    <div className="card w-80 bg-base-100 shadow-xl p-6">
-      <div className="card-body items-center text-center">
-        <h2 className="card-title text-lg font-bold">User Information</h2>
-        <div className="avatar my-4">
-          <div className="w-24 rounded-full bg-neutral-focus text-neutral-content">
-            <span className="text-4xl">👤</span>
-          </div>
+    <div className="card w-64 bg-[#fbfbf5] shadow-lg p-4">
+      <div className="card-body text-left">
+        <h2 className="card-title text-xl font-bold mb-4 items-center justify-center">User Information</h2>
+        <div className="avatar mb-4 flex items-center justify-center">
+          <CircleUserRound size={50} />
         </div>
-        <div className="text-left">
+        <div>
           <p className="text-sm font-semibold">Name</p>
           <p className="mb-2">{user.name}</p>
           <p className="text-sm font-semibold">Email</p>
@@ -27,4 +26,3 @@ export default function ProfileCard({ user }: ProfileCardProps) {
     </div>
   );
 }
-
