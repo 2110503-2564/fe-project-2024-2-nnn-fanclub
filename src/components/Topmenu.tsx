@@ -1,6 +1,6 @@
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { HomeIcon, Building, CircleUser } from "lucide-react";
+import { HomeIcon, Building, CircleUser,UserCog } from "lucide-react";
 
 export default function Topmenu() {
   const { data: session } = useSession();
@@ -35,6 +35,15 @@ export default function Topmenu() {
                 My Profile
               </a>
             </li>
+            {/* Show Manage Company if user is admin */}
+            {session?.user?.role === "admin" && (
+              <li>
+                <a className="flex items-center">
+                  <UserCog size={24} />
+                  Manage Company
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </div>
@@ -48,7 +57,7 @@ export default function Topmenu() {
                 {session.user?.name || "User"}
               </span>
               <button
-                className="btn btn-ghost btn-circle "
+                className="btn btn-ghost btn-circle"
                 onClick={() => signOut()}
               >
                 <span className="material-icons">logout</span>
