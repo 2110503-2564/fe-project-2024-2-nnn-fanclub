@@ -5,6 +5,8 @@ import Topmenu from "@/components/TopMenu";
 import HomePage from "@/components/HomePage";
 import CardPanel from "@/components/CardPanel";
 import axios from "axios";
+import Header from "@/components/Header";
+
 export default function Home() {
   const [companies, setCompanies] = useState<CompanyModel[]>([]); // Store all companies
   const [loading, setLoading] = useState(true);
@@ -34,8 +36,14 @@ export default function Home() {
       <Topmenu />
       {/* <HomePage/> */}
       {/* Page Content */}
+
+      <Header
+        header="Edit Company"
+        description="Edit company for Admin"
+        buttonType="none"
+      />
+
       <div className="flex flex-col items-center gap-4 flex-grow">
-        {/* <HomePage /> */}
         {loading ? (
           <p>Loading...</p>
         ) : companies.length > 0 ? (
