@@ -15,7 +15,7 @@ export default function InterviewCard({
   onRemove,
 }: BookingCardProps) {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center p-6 border-storke border-1 bg-white rounded-lg shadow-md hover:shadow-lg hover:-translate-1 transition duration-300 ease-in-out">
+    <div className="flex flex-col md:flex-row justify-between items-center p-3 md:p-6 border-storke border-1 bg-white rounded-lg shadow-md hover:shadow-lg hover:-translate-1 transition duration-300 ease-in-out">
       {/* Company Info */}
       <div className="flex flex-col items-center space-y-3">
         <div className="flex items-center space-x-3">
