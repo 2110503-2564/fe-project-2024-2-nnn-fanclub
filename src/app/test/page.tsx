@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Topmenu from "@/components/Topmenu";
 import Cardpanel from "@/components/Cardpanel";
+import ProfileCard from "@/components/ProfileCard";
 import axios from "axios";
 import Homepage from "@/components/Homepage";
 
@@ -30,6 +31,15 @@ export default function Home() {
     fetchCompanies();
   }, []);
 
+  const mockUser = {
+    _id: "2",
+    name: "Demo User",
+    telephone: "0987654321",
+    email: "user@example.com",
+    role: "user",
+    createdAt: new Date(),
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-[#fdfcf5]">
       {/* Topmenu */}
@@ -45,6 +55,7 @@ export default function Home() {
         ) : (
           <p>No company data available</p>
         )}
+        <ProfileCard user={mockUser} />
       </div>
     </div>
   );
