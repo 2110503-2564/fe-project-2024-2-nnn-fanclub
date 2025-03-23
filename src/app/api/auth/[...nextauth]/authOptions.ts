@@ -37,12 +37,10 @@ export const authOptions: AuthOptions = {
                             throw new Error("Invalid Token");
                         }
                     } catch (err) {
-                        console.error(err);
                         throw new Error("Invalid Token");
                     }
                 } else {
-                    console.log(user);
-                    throw new Error("Invalid Login");
+                    throw new Error(user.message);
                 }
             },
         })

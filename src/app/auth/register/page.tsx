@@ -36,8 +36,19 @@ export default function RegisterPage() {
         setError("");
 
         try {
-            await userRegister({ ...formData } as UserModel);
+            const res = await userRegister({ ...formData } as UserModel);
+            if (res.message !== "Register Success") {
+                setError(res.message);
+                setLoading(false);
+                return;
+            }
+        } catch (err) {
+            setError("Registration failed. Please try again.");
+            setLoading(false);
+            return;
+        }
 
+        try {
             const result = await signIn("credentials", {
                 redirect: false,
                 email: formData.email,
@@ -51,9 +62,9 @@ export default function RegisterPage() {
             }
         } catch (err) {
             setError("Registration failed. Please try again.");
-        } finally {
-            setLoading(false);
         }
+
+        setLoading(false);
     };
 
     if (session) return null;
