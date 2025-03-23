@@ -20,7 +20,7 @@ export const authOptions: AuthOptions = {
                     try {
                         const verifiedToken = jwt.verify(
                             user.token || "", 
-                            process.env.JWT_SECRET || ""
+                            process.env.NEXTAUTH_SECRET || ""
                         );
 
                         const user2 = await getMe(user.token);

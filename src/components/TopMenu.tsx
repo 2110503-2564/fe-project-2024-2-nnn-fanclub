@@ -1,7 +1,5 @@
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { HomeIcon, Building, CircleUser, UserCog } from "lucide-react";
-import { register } from "module";
 import LeftTopMenu from "@/components/LeftTopMenu";
 
 export default function TopMenu() {
@@ -11,7 +9,7 @@ export default function TopMenu() {
     <div className="navbar bg-c2 shadow-md border-b" color="c2">
       {/* Left Section */}
       <div className="flex-1">
-        <LeftTopMenu sessoion={session} />
+        <LeftTopMenu session={session} />
       </div>
 
       {/* Right Section */}
