@@ -1,5 +1,6 @@
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 import LeftTopMenu from "@/components/LeftTopMenu";
 
 export default function TopMenu() {
@@ -24,7 +25,7 @@ export default function TopMenu() {
                 className="btn btn-ghost btn-circle"
                 onClick={() => signOut()}
               >
-                <span className="material-icons">logout</span>
+                <span className="material-icons">Logout</span>
               </button>
             </div>
           ) : (
@@ -36,9 +37,9 @@ export default function TopMenu() {
                 Login
               </button>
               <button className="rounded-xl btn p-2 md:p-4 bg-c1 hover:bg-white hover:border-c1 hover:border-2 transition duration-500 ease-in-out">
-                <div className="text-sm md:text-l text-white hover:text-c1">
+                <Link className="text-sm md:text-l text-white hover:text-c1" href="/auth/register">
                   Register
-                </div>
+                </Link>
               </button>
             </>
           )}
