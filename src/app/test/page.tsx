@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Topmenu from "@/components/Topmenu";
-import Cardpanel from "@/components/Cardpanel";
+import Topmenu from "@/components/TopMenu";
+import Cardpanel from "@/components/CardPanel";
 import ProfileCard from "@/components/ProfileCard";
 import axios from "axios";
-import Homepage from "@/components/Homepage";
+import Homepage from "@/components/HomePage";
 
 export default function Home() {
   const [companies, setCompanies] = useState<CompanyModel[]>([]); // Store all companies
