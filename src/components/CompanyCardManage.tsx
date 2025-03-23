@@ -46,10 +46,15 @@ export default function InterviewCard({
           </h2>
         </div>
         <div className="flex items-center space-x-3">
-          <Link size={15} />
-          <h2 className="card-title text-xs md:text-base text-gray-500">
+          <Link size={20} />
+          <a
+            href={website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card-title text-xs md:text-base text-blue-4  00 hover:underline"
+          >
             {website}
-          </h2>
+          </a>
         </div>
       </div>
 

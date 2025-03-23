@@ -5,6 +5,7 @@ import TopMenu from "@/components/TopMenu";
 import Header from "@/components/Header";
 import InterviewsCard from "@/components/InterviewCard";
 import CompanyCardManage from "@/components/CompanyCardManage";
+import FormBooking from "@/components/FormBooking";
 
 const mockCompanies = [
   {
@@ -63,6 +64,7 @@ export default function Home() {
             for (let i = 0; i < 3; i++) {
               companies.push(
                 <CompanyCardManage
+                  key={i}
                   name="Google"
                   description="Google is a search engine company. Google is a search engine company. Google is a search engine company. Google is a search engine company"
                   address="Mountain View, California"
@@ -77,6 +79,10 @@ export default function Home() {
           })()}
         </div>
       </div>
+
+      
+        <FormBooking />
+      
     </div>
   );
 }
