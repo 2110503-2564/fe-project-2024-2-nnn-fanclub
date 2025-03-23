@@ -37,8 +37,10 @@ export default function TopMenu() {
               >
                 Login
               </button>
-              <button className="btn p-2 md:p-4 bg-c1 hover:bg-white hover:text-c1 hover:border-c1 hover:border-2 transition duration-500 ease-in-out">
-                <div className="text-white text-sm md:text-l">Register</div>
+              <button className="rounded-xl btn p-2 md:p-4 bg-c1 hover:bg-white hover:border-c1 hover:border-2 transition duration-500 ease-in-out">
+                <div className="text-sm md:text-l text-white hover:text-c1">
+                  Register
+                </div>
               </button>
             </>
           )}

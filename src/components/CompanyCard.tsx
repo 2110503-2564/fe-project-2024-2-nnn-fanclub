@@ -6,14 +6,17 @@ interface CompanyCardProps {
 
 export default function CompanyCard({ company }: CompanyCardProps) {
   return (
-    <div className="card w-full max-w-xs bg-[#fffff5] border rounded-lg p-4">
+    <div className="card w-full max-w-xs bg-c2 border rounded-lg border-storke drop-shadow-lg hover:drop-shadow-xl hover:-translate-1 transition duration-500 ease-in-out">
       <div className="card-body">
+        {/* Company Name */}
         <div className="flex items-center space-x-2">
           <Building size={28} />
-          <h2 className="card-title text-base font-bold">{company.name}</h2>
+          <h2 className="card-title text-xl font-bold">{company.name}</h2>
         </div>
+        {/* Company Description */}
         <p className="text-xs">{company.description}</p>
-        <div className="mt-3 space-y-1">
+        {/* Company Contact Information */}
+        <div className="mt-3 space-y-3">
           <div className="flex items-center space-x-2">
             <MapPin size={20} />
             <span className="text-xs">{company.address}</span>
@@ -34,8 +37,9 @@ export default function CompanyCard({ company }: CompanyCardProps) {
             </a>
           </div>
         </div>
-        <div className="card-actions mt-3">
-          <button className="btn w-full border border-black bg-white text-black rounded-md text-sm">
+        {/* Button */}
+        <div className="card-actions mt-2">
+          <button className="btn w-full border border-storke bg-white text-black rounded-md text-xs md:text-sm hover:bg-gray-100 hover:border-black">
             Sign in to book
           </button>
         </div>
