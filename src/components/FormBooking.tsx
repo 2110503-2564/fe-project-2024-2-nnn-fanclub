@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function BookingForm() {
+export default function FormBooking() {
   // State to manage the selected company and date
   const [selectedCompany, setSelectedCompany] = useState("TechGiant Inc.");
   const [selectedDate, setSelectedDate] = useState("2022-05-10T24:00:00");

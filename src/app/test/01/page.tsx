@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import InterviewsCard from "@/components/InterviewCard";
 import CompanyCardManage from "@/components/CompanyCardManage";
 import FormBooking from "@/components/FormBooking";
+import FormCompany from "@/components/FormCompany";
 
 const mockCompanies = [
   {
@@ -82,6 +83,8 @@ export default function Home() {
 
       
         <FormBooking />
+
+        <FormCompany/>
       
     </div>
   );
