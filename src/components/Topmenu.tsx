@@ -3,24 +3,23 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { HomeIcon, Building, CircleUser, UserCog } from "lucide-react";
 import Link from "next/link";
 
-export default function Topmenu() {
+export default function TopMenu() {
   const { data: session } = useSession();
 
   return (
     <div className="navbar bg-[#fcfbf7] shadow-md border-b" color="fcfbf7">
       {/* Left Section */}
       <div className="flex-1">
-        <div className="flex items-center space-x-2">
-          {/* avartar */}
-          <div className="flex items-center justify-center rounded-full bg-a w-24 h-24">
+        <div className="flex items-center space-x-4">
+          {/* icon */}
+          <div className="flex items-center justify-center rounded-full bg-c1 w-12 h-12">
             <span className="text-center font-semibold">NNN</span>
           </div>
 
-          <span className="text-xl font-bold text-[#8a7e66]">JobFair</span>
+          <span className="text-xl font-bold text-c1">JobFair</span>
           <ul className="menu menu-horizontal px-1 space-x-4">
             <li>
               <Link href="/" className="flex items-center">
-                {/* Use Link to navigate to the homepage */}
                 <HomeIcon size={24} />
                 Home
               </Link>
@@ -54,7 +53,7 @@ export default function Topmenu() {
       <div className="flex-none">
         <div className="flex items-center space-x-4">
           {session ? (
-            <>
+            <div>
               <span className="font-medium text-[#8a7e66]">
                 {session.user?.name || "User"}
               </span>
@@ -64,7 +63,7 @@ export default function Topmenu() {
               >
                 <span className="material-icons">logout</span>
               </button>
-            </>
+            </div>
           ) : (
             <>
               <button

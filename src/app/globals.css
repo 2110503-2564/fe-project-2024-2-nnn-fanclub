@@ -21,7 +21,7 @@
   --color-c2: var(--color2);
   --color-storke: var(--storke);
   --color-bgred: var(--bgred);
-  --color-bggreen: var(--bggreen);
+  --color-bggreen: var(--bggreen)
 }
 
 @media (prefers-color-scheme: dark) {
