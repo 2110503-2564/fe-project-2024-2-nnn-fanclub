@@ -48,7 +48,7 @@ interface CompanyModel {
 
 // models/User.js
 interface UserModel {
-    _id: string;
+    _id?: string;
     name: string;
     telephone: string;
     email: string;

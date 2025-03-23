@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import userLogin from "@/libs/userLogin";
-import NextAuth, { AuthOptions } from "next-auth";
+import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import getMe from "@/libs/getMe";
 
@@ -26,7 +26,7 @@ export const authOptions: AuthOptions = {
                         const user2 = await getMe(user.token);
                         if (user2.data) {
                             return {
-                                id: user2.data._id,
+                                id: user2.data._id || "",
                                 name: user2.data.name,
                                 email: user2.data.email,
                                 role: user2.data.role,
@@ -69,6 +69,7 @@ export const authOptions: AuthOptions = {
         }
     },
     pages: {
-        signIn: '/auth/signin'
+        signIn: '/auth/signin',
+        newUser: '/auth/register',
     }
 }
