@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Topmenu from "@/components/Topmenu";
-import Cardpanel from "@/components/Cardpanel";
+import TopMenu from "@/components/TopMenu";
+import CardPanel from "@/components/CardPanel";
 import ProfileCard from "@/components/ProfileCard";
 import axios from "axios";
-import Homepage from "@/components/Homepage";
+import HomePage from "@/components/HomePage";
 
 export default function Home() {
   const [companies, setCompanies] = useState<CompanyModel[]>([]); // Store all companies
@@ -43,15 +43,15 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-[#fdfcf5]">
       {/* Topmenu */}
-      <Topmenu />
+      <TopMenu />
 
       {/* Page Content */}
       <div className="flex flex-col items-center gap-4 flex-grow">
-        <Homepage />
+        <HomePage />
         {loading ? (
           <p>Loading...</p>
         ) : companies.length > 0 ? (
-          <Cardpanel companies={companies} /> // Use Cardpanel here
+          <CardPanel companies={companies} /> // Use Cardpanel here
         ) : (
           <p>No company data available</p>
         )}

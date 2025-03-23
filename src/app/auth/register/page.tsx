@@ -16,7 +16,6 @@ export default function RegisterPage() {
         }
     }, [session, router]);
 
-    // State for form data
     const [formData, setFormData] = useState({
         name: "",
         telephone: "",

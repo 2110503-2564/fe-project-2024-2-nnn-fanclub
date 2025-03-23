@@ -23,7 +23,7 @@ export default function SignIn() {
     if (res?.error) {
       setError("Invalid email or password");
     } else {
-      router.push("/"); // Redirect after login
+      router.push("/");
     }
   };
 
