@@ -20,5 +20,15 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  if (token.role === 'admin' && req.nextUrl.pathname.startsWith('/admin')) {
+    return NextResponse.next()
+  } else if (token.role !== 'admin' && req.nextUrl.pathname.startsWith('/admin')) {
+    return NextResponse.redirect(new URL('/user', req.url))
+  } else if (token.role === 'user' && req.nextUrl.pathname.startsWith('/user')) {
+    return NextResponse.next()
+  } else if (token.role !== 'user' && req.nextUrl.pathname.startsWith('/user')) {
+    return NextResponse.redirect(new URL('/admin', req.url))
+  }
+
   return NextResponse.next()
 }
