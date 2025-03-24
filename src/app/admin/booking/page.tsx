@@ -7,6 +7,9 @@ import getMe from "@/libs/getMe";
 import InterviewCard from "@/components/InterviewCard";
 import getUserBooking from "@/libs/getUserBooking";
 import dayjs from "dayjs";
+import { deleteBooking } from "@/libs/deleteBooking";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface ProfileCardProps {
   user: UserModel;
@@ -14,11 +17,14 @@ interface ProfileCardProps {
 
 export default function AdminManageBooking() {
   const { data: session } = useSession();
+  const router = useRouter();
 
   const [userData, setUserData] = useState<UserModel | null>(null); // Store User data
   const [booking, setBooking] = useState<BookingApi | null>(null); // Store all user booking
   const [loading, setLoading] = useState(true);
+  const [removeRef, setRemoveRef] = useState<string>("");
 
+  //fetch Data
   useEffect(() => {
     //fetch User
     const fetchUser = async () => {
@@ -56,8 +62,56 @@ export default function AdminManageBooking() {
 
   if (loading) return <div>Loading...</div>;
 
+  //for remove button
+  const removeDialog = async (bookingId: string) => {
+    setRemoveRef(bookingId);
+    const modal = document.getElementById(
+      "modal-remove"
+    ) as HTMLDialogElement | null;
+    if (modal) {
+      modal.showModal();
+    }
+  };
+
+  const removeAction = async () => {
+    if (removeRef && session) {
+      toast
+        .promise(deleteBooking(session.verifiedToken, removeRef), {
+          loading: "Loading...",
+          success: "Remove successfully!",
+          error: "Error can't remove booking",
+        })
+        .then(() => {
+          window.location.reload();
+        });
+    } else {
+      toast.error("Error can't remove booking");
+    }
+  };
+
   return (
     <div>
+      {/* dialog remove */}
+      <dialog id="modal-remove" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Comfirm Delete ?</h3>
+          <p className="py-4">Are you confirm to delete this booking</p>
+          <div className="modal-action">
+            <form method="dialog">
+              <div className="flex gap-x-2">
+                <button
+                  className="btn btn-error text-white"
+                  onClick={removeAction}
+                >
+                  Delete
+                </button>
+                <button className="btn">Keep</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </dialog>
+      {/* Header */}
       <Header
         header="Profile Admin"
         description="Manage all interview bookings"
@@ -86,8 +140,10 @@ export default function AdminManageBooking() {
                   key={index}
                   companyName={booking.company.name}
                   bookingDate={dayjs(booking.apptDate).format("YYYY-MM-DD")}
-                  onEdit={() => console.log("Edit")}
-                  onRemove={() => console.log("Remove")}
+                  onEdit={() => {
+                    router.push(`/admin/booking/${booking._id}`);
+                  }}
+                  onRemove={() => removeDialog(booking._id)}
                 />
               ))}
             </div>
