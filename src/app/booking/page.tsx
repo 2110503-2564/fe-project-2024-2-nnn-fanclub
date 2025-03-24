@@ -4,8 +4,11 @@ import Header from "@/components/Header";
 import TopMenu from "@/components/TopMenu";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 export default function booking() {
+  const { data: session } = useSession();
+
   const [companies, setCompanies] = useState<CompanyModel[]>([]); // Store all companies
   const [loading, setLoading] = useState(true);
 
@@ -28,11 +31,12 @@ export default function booking() {
 
   return (
     <div>
-      <TopMenu />
+      <TopMenu/>
       <Header
         header="Participating Companies"
         description="Browse all companies participating in our online job fair"
         buttonType="none"
+        role={session?.user.role as string}
       />
       {/* Companies List */}
       <div className="flex flex-col items-center gap-4 flex-grow">

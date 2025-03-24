@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import { TextField, MenuItem, Button } from "@mui/material";
 import { Building, MapPin, Phone, Link } from "lucide-react";

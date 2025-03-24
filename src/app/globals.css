@@ -4,7 +4,7 @@
 }
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #ededed;
   --color1: #8a7e66;
   --color2: #fffff5;
   --storke: #c8c8c8;
@@ -22,18 +22,6 @@
   --color-storke: var(--storke);
   --color-bgred: var(--bgred);
   --color-bggreen: var(--bggreen)
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --color1: #8a7e66;
-    --color2: #fffff5;
-    --storke: #c8c8c8;
-    --bgred: #ffbdbd;
-    --bggreen: #abf9b4;
-  }
 }
 
 body {

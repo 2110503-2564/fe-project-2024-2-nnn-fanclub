@@ -1,10 +1,15 @@
 import React from "react";
 import { Building, MapPin, Phone, Link } from "lucide-react";
+import Links from "next/link";
+import { useSession } from "next-auth/react";
 interface CompanyCardProps {
   company: CompanyModel;
 }
 
 export default function CompanyCard({ company }: CompanyCardProps) {
+  const {data: session} = useSession();
+  const roles = session?.user.role;
+
   return (
     <div className="card w-full max-w-xs bg-c2 border rounded-lg border-storke drop-shadow-lg hover:drop-shadow-xl hover:-translate-1 transition duration-500 ease-in-out">
       <div className="card-body">
@@ -39,9 +44,17 @@ export default function CompanyCard({ company }: CompanyCardProps) {
         </div>
         {/* Button */}
         <div className="card-actions mt-2">
-          <button className="btn w-full border border-storke bg-white text-black rounded-md text-xs md:text-sm hover:bg-gray-100 hover:border-black">
-            Sign in to book
-          </button>
+          {
+            session ? (
+              <Links href={`/${roles === 'user' ? 'user' : 'admin' }/booking/new?id=${company._id}`} className="btn w-full border border-storke bg-white text-black rounded-md text-xs md:text-sm hover:bg-gray-100 hover:border-black">
+                Book
+              </Links>
+            ) : (
+              <Links href="/auth/signin" className="btn w-full border border-storke bg-white text-black rounded-md text-xs md:text-sm hover:bg-gray-100 hover:border-black">
+                Sign in to book
+              </Links>
+            )
+          }
         </div>
       </div>
     </div>

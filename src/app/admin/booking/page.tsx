@@ -15,7 +15,7 @@ interface ProfileCardProps {
   user: UserModel;
 }
 
-export default function ProfileUser() {
+export default function AdminManageBooking() {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -113,10 +113,10 @@ export default function ProfileUser() {
       </dialog>
       {/* Header */}
       <Header
-        header="My Profile"
-        description="Manage your account and interview bookings"
+        header="Profile Admin"
+        description="Manage all interview bookings"
         buttonType="Book an Interview"
-        role={session?.user.role as string}
+        role="admin"
       />
       {/* Content */}
       <div className="flex flex-col md:flex-row align-start justify-center py-10 px-2 bg-white gap-6">
@@ -141,7 +141,7 @@ export default function ProfileUser() {
                   companyName={booking.company.name}
                   bookingDate={dayjs(booking.apptDate).format("YYYY-MM-DD")}
                   onEdit={() => {
-                    router.push(`/user/booking/${booking._id}`);
+                    router.push(`/admin/booking/${booking._id}`);
                   }}
                   onRemove={() => removeDialog(booking._id)}
                 />
