@@ -64,7 +64,7 @@ export default function AdminManageBooking() {
         buttonType="Book an Interview"
         role="admin"
       />
-      ;{/* Content */}
+      {/* Content */}
       <div className="flex flex-col md:flex-row align-start justify-center py-10 px-2 bg-white gap-6">
         {/* Profile Card */}
         {userData && (

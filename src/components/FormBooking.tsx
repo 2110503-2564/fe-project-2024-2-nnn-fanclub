@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from "react";
+import {Building, Calendar } from "lucide-react"
 
 export default function FormBooking() {
   // State to manage the selected company and date
@@ -28,7 +29,11 @@ export default function FormBooking() {
           {/* Company Selection */}
           <div className="flex flex-col items-center">
             <label className="block text-center text-base md:text-2xl font-medium">
-              Before : {selectedCompany}
+              <h2 className="card-title">
+                {" "}
+                <Building size={23} />
+                Before : {selectedCompany}
+              </h2>
             </label>
             <select
               value={selectedCompany}
@@ -44,7 +49,11 @@ export default function FormBooking() {
           {/* Date Picker */}
           <div className="flex flex-col items-center">
             <label className="block text-center text-base md:text-2xl font-medium">
-              Before : {selectedDate}
+              <h2 className="card-title">
+                {" "}
+                <Calendar size={23} />
+                Before : {selectedDate}
+              </h2>
             </label>
             <input
               type="datetime-local"
