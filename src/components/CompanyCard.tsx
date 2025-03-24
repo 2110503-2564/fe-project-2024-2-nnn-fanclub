@@ -1,5 +1,6 @@
 import React from "react";
 import { Building, MapPin, Phone, Link } from "lucide-react";
+import Links from "next/link";
 import { useSession } from "next-auth/react";
 interface CompanyCardProps {
   company: CompanyModel;
@@ -48,9 +49,9 @@ export default function CompanyCard({ company }: CompanyCardProps) {
                 Book
               </button>
             ) : (
-              <button className="btn w-full border border-storke bg-white text-black rounded-md text-xs md:text-sm hover:bg-gray-100 hover:border-black">
+              <Links href="/auth/signin" className="btn w-full border border-storke bg-white text-black rounded-md text-xs md:text-sm hover:bg-gray-100 hover:border-black">
                 Sign in to book
-              </button>
+              </Links>
             )
           }
         </div>
