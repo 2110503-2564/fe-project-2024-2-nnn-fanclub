@@ -32,7 +32,7 @@ export default function FormBooking() {
               <h2 className="card-title">
                 {" "}
                 <Building size={23} />
-                Before : {selectedCompany}
+                Name Company
               </h2>
             </label>
             <select
@@ -52,7 +52,7 @@ export default function FormBooking() {
               <h2 className="card-title">
                 {" "}
                 <Calendar size={23} />
-                Before : {selectedDate}
+                Appointment
               </h2>
             </label>
             <input
