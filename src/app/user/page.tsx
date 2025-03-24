@@ -59,7 +59,6 @@ export default function booking() {
 
   return (
     <div>
-      <TopMenu />
       <Header
         header="My Profile"
         description="Manage your account and interview bookings"
@@ -69,29 +68,18 @@ export default function booking() {
       {/* Content */}
       <div className="flex flex-col md:flex-row align-start justify-center py-10 px-2 bg-white gap-6">
         {/* Profile Card */}
-        <div className="w-full md:w-[20%]">
-          <ProfileCard user={userData as UserModel} />
-        </div>
+        {
+          userData && (
+            <div className="w-full md:w-[20%]">
+              <ProfileCard user={userData as UserModel} />
+            </div>
+          )
+        }
         {/* My Interviews */}
         <div className="w-full md:w-[75%] bg-c2 p-2 md:p-6 space-y-4 md:space-y-6 border-2 border-storke rounded-xl">
           <div className="font-bold text-center text-2xl md:text-3xl">
             My Interviews
           </div>
-          {/* {(() => {
-            const interviewCards = [];
-            for (let i = 0; i < 3; i++) {
-              interviewCards.push(
-                <InterviewCard
-                  key={i}
-                  companyName="Google"
-                  bookingDate="2021-10-12"
-                  onEdit={() => console.log("Edit")}
-                  onRemove={() => console.log("Remove")}
-                />
-              );
-            }
-            return interviewCards;
-          })()} */}
             {booking?.data && Array.isArray(booking.data) && booking.data.length > 0 ? (
             <div className="space-y-4 md:space-y-6">
               {booking.data.map((booking: BookingModel, index: number) => (
