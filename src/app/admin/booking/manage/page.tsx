@@ -11,7 +11,7 @@ export default function EditBooking() {
         role="user"
       />
       {/* Content */}
-      <FormBooking/>
+      <FormBooking action="update"/>
     </main>
   );
 }

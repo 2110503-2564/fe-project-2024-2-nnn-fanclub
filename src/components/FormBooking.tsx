@@ -1,18 +1,20 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
-import {Building, Calendar } from "lucide-react"
+import { Building, Calendar } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import getCompany from "@/libs/getCompany";
 import createBooking from "@/libs/createBooking";
 
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs, { Dayjs } from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs, { Dayjs } from "dayjs";
+import updateBooking from "@/libs/updateBooking";
+import getBooking from "@/libs/getBooking";
 
-export default function FormBooking() {
+export default function FormBooking({ action }: { action: string }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
@@ -23,15 +25,35 @@ export default function FormBooking() {
       toast.error("Invalid URL. Redirecting to booking page.");
     } else {
       const companyId = searchParams.get("id");
-      if (companyId && session) {
+      if (companyId && session && action === "create") {
         getCompany(session.verifiedToken, companyId)
           .then((company) => {
             if (!company.success) {
               toast.error("Not found company in system");
-            } else if (company.data){
-              const obj = Array.isArray(company.data) ? company.data[0] : company.data;
+            } else if (company.data) {
+              const obj = Array.isArray(company.data)
+                ? company.data[0]
+                : company.data;
               setSelectedCompanyName(obj.name);
               setSelectedCompany(obj._id);
+            }
+          })
+          .catch((error) => {
+            toast.error("Failed to fetch company data.");
+            console.error(error);
+          });
+      } else if (companyId && session && action === "update") {
+        getBooking(session.verifiedToken, companyId)
+          .then((company) => {
+            if (!company.success) {
+              toast.error("Not found company in system");
+            } else if (company.data) {
+              const obj = Array.isArray(company.data)
+                ? company.data[0]
+                : company.data;
+              setSelectedCompanyName(obj.company.name);
+              setSelectedCompany(obj._id);
+              setSelectedDate(dayjs(obj.apptDate));
             }
           })
           .catch((error) => {
@@ -45,7 +67,9 @@ export default function FormBooking() {
   // State to manage the selected company and date
   const [selectedCompany, setSelectedCompany] = useState("");
   const [selectedCompantName, setSelectedCompanyName] = useState("loading");
-  const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs("2022-05-10T24:00:00"));
+  const [selectedDate, setSelectedDate] = useState<Dayjs>(
+    dayjs("2022-05-10T24:00:00")
+  );
 
   const handleDateChange = (e: any) => {
     setSelectedDate(e);
@@ -54,24 +78,55 @@ export default function FormBooking() {
   // Handle confirm button click
   const handleConfirm = async () => {
     if (session && selectedCompany) {
-      console.log(session.verifiedToken)
-      toast.promise(
-        async () => {
-          await createBooking(session.verifiedToken, selectedCompany, selectedDate.toISOString())
-          .then((res) => {
-        if (res.success) {
-          router.push("/user/");
-        } else {
-          throw new Error(res.message);
-        }
-          })
-        },
-        {
-          loading: "Creating booking...",
-          success: "Created booking successfully.",
-          error: (err) => err.message || "Failed to create booking.",
-        }
-      );
+      console.log("token: ", session.verifiedToken, ", action: ", action);
+      //create booking
+      if (action === "create") {
+        toast.promise(
+          async () => {
+            await createBooking(
+              session.verifiedToken,
+              selectedCompany,
+              selectedDate.toISOString()
+            ).then((res) => {
+              if (res.success) {
+                if (session.user.role === "user") router.push("/user");
+                else router.push("/admin/booking");
+              } else {
+                throw new Error(res.message);
+              }
+            });
+          },
+          {
+            loading: "Creating booking...",
+            success: "Created booking successfully.",
+            error: (err) => err.message || "Failed to create booking.",
+          }
+        );
+      }
+      //update booking
+      else {
+        toast.promise(
+          async () => {
+            await updateBooking(
+              session.verifiedToken,
+              selectedCompany,
+              selectedDate.toISOString()
+            ).then((res) => {
+              if (res.success) {
+                if (session.user.role === "user") router.push("/user");
+                else router.push("/admin/booking");
+              } else {
+                throw new Error(res.message);
+              }
+            });
+          },
+          {
+            loading: "Creating booking...",
+            success: "Created booking successfully.",
+            error: (err) => err.message || "Failed to create booking.",
+          }
+        );
+      }
     }
   };
 
@@ -92,7 +147,9 @@ export default function FormBooking() {
               defaultValue={selectedCompany}
               className="text-sm md:text-lg mt-2 justify-items-center block w-3/4 px-4 py-2 bg-white rounded-md border border-storke"
             >
-              <option defaultValue={selectedCompany}>{ selectedCompantName }</option>
+              <option defaultValue={selectedCompany}>
+                {selectedCompantName}
+              </option>
             </select>
           </div>
 
@@ -106,7 +163,11 @@ export default function FormBooking() {
               </h2>
             </label>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker value={selectedDate} onChange={handleDateChange} className="text-sm md:text-lg mt-2 justify-items-center block w-3/4 px-4 py-2 bg-white rounded-md border border-storke"/>
+              <DatePicker
+                value={selectedDate}
+                onChange={handleDateChange}
+                className="text-sm md:text-lg mt-2 justify-items-center block w-3/4 px-4 py-2 bg-white rounded-md border border-storke"
+              />
             </LocalizationProvider>
           </div>
 
@@ -123,4 +184,4 @@ export default function FormBooking() {
       </div>
     </div>
   );
-};
+}
