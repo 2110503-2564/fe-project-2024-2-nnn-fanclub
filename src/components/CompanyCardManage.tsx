@@ -20,6 +20,8 @@ export default function InterviewCard({
   onEdit,
   onRemove,
 }: BookingCardProps) {
+
+  console.log("CompanyCardManage: ", name, address, website, description, telephone);
   return (
     <div className="flex flex-col md:flex-row justify-between items-center p-2 md:p-6 border-storke border-1 bg-white rounded-lg shadow-md hover:shadow-lg hover:-translate-1 transition duration-300 ease-in-out">
       {/* Company Info */}

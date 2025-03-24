@@ -31,7 +31,7 @@ export default function booking() {
 
   return (
     <div>
-      <TopMenu />
+      <TopMenu/>
       <Header
         header="Participating Companies"
         description="Browse all companies participating in our online job fair"
