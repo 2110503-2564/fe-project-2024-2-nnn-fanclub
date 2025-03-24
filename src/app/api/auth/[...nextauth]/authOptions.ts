@@ -25,13 +25,14 @@ export const authOptions: AuthOptions = {
 
                         const user2 = await getMe(user.token);
                         if (user2.data) {
+                            console.log(typeof verifiedToken);
                             return {
                                 id: user2.data._id || "",
                                 name: user2.data.name,
                                 email: user2.data.email,
                                 role: user2.data.role,
-                                token: user2.token || "",
-                                verifiedToken: typeof verifiedToken === 'string' ? verifiedToken : undefined
+                                token: user.token || "",
+                                verifiedToken: user.token || ""
                             };
                         } else {
                             throw new Error("Invalid Token");
@@ -55,13 +56,12 @@ export const authOptions: AuthOptions = {
                 token.verifiedToken = user.verifiedToken;
             }
             return token;
-
         },
         async session({session, token}) {
             if (token) {
                 session.user.id = token.id as string;
                 session.user.role = token.role as string;
-                session.user.verifiedToken = token.verifiedToken as string;
+                session.verifiedToken = token.verifiedToken as string;
             }
             return session;
         }

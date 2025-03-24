@@ -11,9 +11,8 @@ declare module "next-auth" {
     }
 
     interface Session {
-        user: User & {
-            verifiedToken?: string;
-        };
+        user: User;
+        verifiedToken: string;
     }
 
     interface JWT {
