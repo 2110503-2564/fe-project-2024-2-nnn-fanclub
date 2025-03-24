@@ -12,7 +12,7 @@ interface ProfileCardProps {
   user: UserModel;
 }
 
-export default function ProfileUser() {
+export default function AdminManageBooking() {
   const { data: session } = useSession();
 
   const [userData, setUserData] = useState<UserModel | null>(null); // Store User data
@@ -59,43 +59,43 @@ export default function ProfileUser() {
   return (
     <div>
       <Header
-        header="My Profile"
-        description="Manage your account and interview bookings"
+        header="Profile Admin"
+        description="Manage all interview bookings"
         buttonType="Book an Interview"
-        role={session?.user.role as string}
+        role="admin"
       />
-      {/* Content */}
+      ;{/* Content */}
       <div className="flex flex-col md:flex-row align-start justify-center py-10 px-2 bg-white gap-6">
         {/* Profile Card */}
-        {
-          userData && (
-            <div className="w-full md:w-[20%]">
-              <ProfileCard user={userData as UserModel} />
-            </div>
-          )
-        }
+        {userData && (
+          <div className="w-full md:w-[20%]">
+            <ProfileCard user={userData as UserModel} />
+          </div>
+        )}
         {/* My Interviews */}
         <div className="w-full md:w-[75%] bg-c2 p-2 md:p-6 space-y-4 md:space-y-6 border-2 border-storke rounded-xl">
           <div className="font-bold text-center text-2xl md:text-3xl">
             My Interviews
           </div>
-            {booking?.data && Array.isArray(booking.data) && booking.data.length > 0 ? (
+          {booking?.data &&
+          Array.isArray(booking.data) &&
+          booking.data.length > 0 ? (
             <div className="space-y-4 md:space-y-6">
               {booking.data.map((booking: BookingModel, index: number) => (
-              <InterviewCard
-                key={index}
-                companyName={booking.company.name}
-                bookingDate={dayjs(booking.apptDate).format("YYYY-MM-DD")}
-                onEdit={() => console.log("Edit")}
-                onRemove={() => console.log("Remove")}
-              />
+                <InterviewCard
+                  key={index}
+                  companyName={booking.company.name}
+                  bookingDate={dayjs(booking.apptDate).format("YYYY-MM-DD")}
+                  onEdit={() => console.log("Edit")}
+                  onRemove={() => console.log("Remove")}
+                />
               ))}
             </div>
-            ) : (
+          ) : (
             <div className="text-center text-lg">
               You have no interview scheduled
             </div>
-            )}
+          )}
         </div>
       </div>
     </div>

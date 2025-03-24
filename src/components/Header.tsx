@@ -32,7 +32,7 @@ export default function Header({
     );
   } else if (buttonType === "Book an Interview") {
     Btn = (
-      <Link href={role === "admin" ? "/admin/company" : "/booking"}>
+      <Link href="/booking">
         <button className="btn mt-5 px-2 py-1 md:px-4 md:py-2 bg-black text-white rounded-md text-xs hover:bg-white hover:text-black hover:border-black transition duration-500 ease-in-out">
           <span className="flex items-center space-x-2">
             <Calendar size={14} />
