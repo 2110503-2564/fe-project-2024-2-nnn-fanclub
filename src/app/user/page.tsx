@@ -142,7 +142,7 @@ export default function ProfileUser() {
                   companyName={booking.company.name}
                   bookingDate={dayjs(booking.apptDate).format("YYYY-MM-DD")}
                   onEdit={() => {
-                    router.push(`/user/booking/${booking._id}`);
+                    router.push(`/user/booking/manage?id=${booking._id}`);
                   }}
                   onRemove={() => removeDialog(booking._id)}
                 />

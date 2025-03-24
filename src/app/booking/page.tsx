@@ -1,7 +1,6 @@
-"use client";
+"use client"
 import CardPanel from "@/components/CardPanel";
 import Header from "@/components/Header";
-import TopMenu from "@/components/TopMenu";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -31,7 +30,6 @@ export default function booking() {
 
   return (
     <div>
-      <TopMenu/>
       <Header
         header="Participating Companies"
         description="Browse all companies participating in our online job fair"
