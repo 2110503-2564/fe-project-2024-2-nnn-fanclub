@@ -6,9 +6,9 @@ export default function FormCompany() {
   // State to manage
   const [name, setName] = useState("before value name");
   const [description, setDescription] = useState("before value description");
-    const [address, setAddress] = useState("before value address");
-    const [tele, setTele] = useState("before value tele");
-    const [website, setWebsite] = useState("before value website");
+  const [address, setAddress] = useState("before value address");
+  const [tele, setTele] = useState("before value tele");
+  const [website, setWebsite] = useState("before value website");
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -37,13 +37,15 @@ export default function FormCompany() {
         <div className="flex flex-col space-y-4 my-4">
           {/* Form Text Input Name */}
           <div className="flex flex-col items-center space-y-2">
-            <label className="block text-base md:text-xl font-medium text-gray-700">
-              <h2 className="card-title text-lg md:text-3xl font-bold">
-                {" "}
-                <Building size={23} />
-                Name
-              </h2>
-            </label>
+            <div className="w-3/4 flex justify-start">
+              <label className="block text-base md:text-xl font-medium text-gray-700">
+                <h2 className="card-title text-base md:text-3xl font-bold">
+                  {" "}
+                  <Building size={23} />
+                  Company Name
+                </h2>
+              </label>
+            </div>
             <div className="w-3/4 bg-white rounded-md border border-storke">
               <TextField
                 fullWidth
@@ -58,13 +60,15 @@ export default function FormCompany() {
 
           {/* Form Text Input Description */}
           <div className="flex flex-col items-center space-y-2">
-            <label className="block text-base md:text-xl font-medium text-gray-700">
-              <h2 className="card-title text-lg md:text-3xl font-bold">
-                {" "}
-                <MapPin size={23} />
-                Description
-              </h2>
-            </label>
+            <div className="w-3/4 flex justify-start">
+              <label className="block text-base md:text-xl font-medium text-gray-700">
+                <h2 className="card-title text-base md:text-3xl font-bold">
+                  {" "}
+                  <MapPin size={23} />
+                  Description
+                </h2>
+              </label>
+            </div>
             <div className="w-3/4 bg-white rounded-md border border-storke">
               <TextField
                 fullWidth
@@ -79,13 +83,15 @@ export default function FormCompany() {
 
           {/* Form Text Input Address */}
           <div className="flex flex-col items-center space-y-2">
-            <label className="block text-base md:text-xl font-medium text-gray-700">
-              <h2 className="card-title text-lg md:text-3xl font-bold">
-                {" "}
-                <MapPin size={23} />
-                Address
-              </h2>
-            </label>
+            <div className="w-3/4 flex justify-start">
+              <label className="block text-base md:text-xl font-medium text-gray-700">
+                <h2 className="card-title text-base md:text-3xl font-bold">
+                  {" "}
+                  <MapPin size={23} />
+                  Address
+                </h2>
+              </label>
+            </div>
             <div className="w-3/4 bg-white rounded-md border border-storke">
               <TextField
                 fullWidth
@@ -100,13 +106,15 @@ export default function FormCompany() {
 
           {/* Form Text Input Telephone number */}
           <div className="flex flex-col items-center space-y-2">
+            <div className="w-3/4 flex justify-start">
             <label className="block text-base md:text-xl font-medium text-gray-700">
-              <h2 className="card-title text-lg md:text-3xl font-bold">
+              <h2 className="card-title text-base md:text-3xl font-bold">
                 {" "}
                 <Phone size={23} />
                 Telephone number
               </h2>
             </label>
+            </div>
             <div className="w-3/4 bg-white rounded-md border border-storke">
               <TextField
                 fullWidth
@@ -121,13 +129,15 @@ export default function FormCompany() {
 
           {/* Form Text Input Website */}
           <div className="flex flex-col items-center space-y-2">
+            <div className="w-3/4 flex justify-start">
             <label className="block text-base md:text-xl font-medium text-gray-700">
-              <h2 className="card-title text-lg md:text-3xl font-bold">
+              <h2 className="card-title text-base md:text-3xl font-bold">
                 {" "}
                 <Link size={23} />
                 Website
               </h2>
             </label>
+            </div>
             <div className="w-3/4 bg-white rounded-md border border-storke">
               <TextField
                 fullWidth
@@ -153,4 +163,4 @@ export default function FormCompany() {
       </div>
     </div>
   );
-};
+}

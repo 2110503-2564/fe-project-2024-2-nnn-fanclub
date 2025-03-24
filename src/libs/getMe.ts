@@ -10,4 +10,7 @@ export default async function getMe(token: string): Promise<UserApi> {
     .then((res) => {
         return { ...res.data, message: "GET_OK" } as UserApi;
     })
+    .catch((err) => {
+      return { success: false, message: err } as UserApi;
+    });
 }

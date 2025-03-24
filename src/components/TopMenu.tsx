@@ -7,43 +7,51 @@ export default function TopMenu() {
   const { data: session } = useSession();
 
   return (
-    <div className="navbar bg-c2 shadow-md border-b" color="c2">
+    <div
+      className="navbar bg-c2 shadow-md border-b flex justify-between"
+      color="c2"
+    >
       {/* Left Section */}
-      <div className="flex-1">
+      <div className="flex">
         <LeftTopMenu session={session} />
       </div>
 
       {/* Right Section */}
-      <div className="flex-none">
-        <div className="flex items-center space-x-4">
-          {session ? (
-            <div>
-              <span className="font-medium text-c1">
-                {session.user?.name || "User"}
-              </span>
+      <div className="RightSection">
+        {session ? (
+          <ul className="flex flex-row items-center space-x-1 md:space-x-5">
+            <li className="w-[100px] md:w-full font-medium text-c1 text-sm truncate md:text-base">
+              {session.user?.name || "User"}
+            </li>
+            <li>
               <button
-                className="btn btn-ghost btn-circle"
-                onClick={() => signOut()}
+                className="w-full btn btn-ghost rounded-lg"
+                onClick={() => signOut({ callbackUrl: '/' })}
               >
-                <span className="material-icons">Logout</span>
+                <span className="material-icons text-sm md:text-base">
+                  Logout
+                </span>
               </button>
-            </div>
-          ) : (
-            <>
-              <button
-                className="btn btn-ghost text-c1 text-sm md:text-l font-bold "
-                onClick={() => signIn()}
+            </li>
+          </ul>
+        ) : (
+          <>
+            <button
+              className="btn btn-ghost text-c1 text-sm md:text-l font-bold "
+              onClick={() => signIn()}
+            >
+              Login
+            </button>
+            <button className="rounded-xl btn p-2 md:p-4 bg-c1 hover:bg-white hover:border-c1 hover:border-2 transition duration-500 ease-in-out">
+              <Link
+                className="text-sm md:text-l text-white hover:text-c1"
+                href="/auth/register"
               >
-                Login
-              </button>
-              <button className="rounded-xl btn p-2 md:p-4 bg-c1 hover:bg-white hover:border-c1 hover:border-2 transition duration-500 ease-in-out">
-                <Link className="text-sm md:text-l text-white hover:text-c1" href="/auth/register">
-                  Register
-                </Link>
-              </button>
-            </>
-          )}
-        </div>
+                Register
+              </Link>
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

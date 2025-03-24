@@ -33,7 +33,7 @@ interface CompaniesApi {
 interface BookingModel {
     apptDate: Date;
     user: string;
-    company: string;
+    company: CompanyModel;
     createdAt: Date;
 }
 
