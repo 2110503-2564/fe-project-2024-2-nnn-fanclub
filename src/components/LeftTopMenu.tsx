@@ -50,11 +50,7 @@ export default function LeftTopMenu(session: any) {
               {/* Companies */}
               <li>
                 <Link
-                  href={
-                    session?.session?.user?.role === "admin"
-                      ? "/admin/booking"
-                      : "/user"
-                  }
+                  href="/booking"
                   className="flex items-center"
                 >
                   <Building size={24} />
@@ -82,10 +78,10 @@ export default function LeftTopMenu(session: any) {
               {/* Show Manage Company if user is admin */}
               {session?.session?.user?.role === "admin" && (
                 <li>
-                  <a className="flex items-center">
+                  <Link href="/admin/company" className="flex items-center">
                     <UserCog size={24} />
                     Manage Company
-                  </a>
+                  </Link>
                 </li>
               )}
             </ul>
@@ -107,11 +103,7 @@ export default function LeftTopMenu(session: any) {
           {/* Companies */}
           <li>
             <Link
-              href={
-                session?.session?.user?.role === "admin"
-                  ? "/admin/company"
-                  : "/booking"
-              }
+              href="/booking"
               className="flex items-center"
             >
               <Building size={24} />
@@ -139,14 +131,7 @@ export default function LeftTopMenu(session: any) {
           {/* Show Manage Company if user is admin */}
           {session?.session?.user?.role === "admin" && (
             <li>
-              <Link
-                href={
-                  session?.session?.user?.role === "admin"
-                    ? "/admin/booking"
-                    : "/user"
-                }
-                className="flex items-center"
-              >
+              <Link href="/admin/company" className="flex items-center">
                 <UserCog size={24} />
                 Manage Company
               </Link>

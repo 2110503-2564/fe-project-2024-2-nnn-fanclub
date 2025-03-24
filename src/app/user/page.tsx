@@ -64,6 +64,7 @@ export default function booking() {
         header="My Profile"
         description="Manage your account and interview bookings"
         buttonType="Book an Interview"
+        role={session?.user.role as string}
       />
       {/* Content */}
       <div className="flex flex-col md:flex-row align-start justify-center py-10 px-2 bg-white gap-6">
