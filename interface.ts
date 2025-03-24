@@ -31,6 +31,7 @@ interface CompaniesApi {
 
 // models/Booking.js
 interface BookingModel {
+    _id: string;
     apptDate: Date;
     user: string;
     company: CompanyModel;
