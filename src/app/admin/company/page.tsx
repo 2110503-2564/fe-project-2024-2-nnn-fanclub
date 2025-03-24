@@ -112,7 +112,7 @@ export default function ManageCompanyPage() {
                 telephone={company.telephone}
                 website={company.website}
                 onEdit={() => {
-                  router.push(`/admin/company/${company._id}`);
+                  router.push(`/admin/company/manage?id=${company._id}`);
                 }}
                 onRemove={() => removeDialog(company._id)}
               />
