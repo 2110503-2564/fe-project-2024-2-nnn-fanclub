@@ -19,8 +19,8 @@ export default function TopMenu() {
       {/* Right Section */}
       <div className="RightSection">
         {session ? (
-          <ul className="flex flex-row items-center space-x-2 md:space-x-10">
-            <li className="w-full font-medium text-c1 text-sm md:text-lg">
+          <ul className="flex flex-row items-center space-x-1 md:space-x-5">
+            <li className="w-[100px] md:w-full font-medium text-c1 text-sm truncate md:text-base">
               {session.user?.name || "User"}
             </li>
             <li>
@@ -28,7 +28,9 @@ export default function TopMenu() {
                 className="w-full btn btn-ghost rounded-lg"
                 onClick={() => signOut()}
               >
-                <span className="material-icons text-base md:text-xl">Logout</span>
+                <span className="material-icons text-sm md:text-base">
+                  Logout
+                </span>
               </button>
             </li>
           </ul>

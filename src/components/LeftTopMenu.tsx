@@ -40,24 +40,46 @@ export default function LeftTopMenu(session: any) {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
+              {/* Home */}
               <li>
                 <Link href="/" className="flex items-center">
                   <HomeIcon size={24} />
                   Home
                 </Link>
               </li>
+              {/* Companies */}
               <li>
-                <Link href="/" className="flex items-center">
+                <Link
+                  href={
+                    session?.session?.user?.role === "admin"
+                      ? "/admin/booking"
+                      : "/user"
+                  }
+                  className="flex items-center"
+                >
                   <Building size={24} />
                   Companies
                 </Link>
               </li>
-              <li>
-                <Link href="/" className="flex items-center">
-                  <CircleUser size={24} />
-                  My Profile
-                </Link>
-              </li>
+              {/* Show My Profile if user is logged in */}
+              {session?.session?.user && (
+                <li>
+                  <Link
+                    href={
+                      session?.session?.user?.role === "admin"
+                        ? "/admin/booking"
+                        : "/user"
+                    }
+                    className="flex items-center"
+                  >
+                    <CircleUser size={24} />
+                    {session?.session?.user?.role === "admin"
+                      ? "Manage Booking"
+                      : "My Profile"}
+                  </Link>
+                </li>
+              )}
+              {/* Show Manage Company if user is admin */}
               {session?.session?.user?.role === "admin" && (
                 <li>
                   <a className="flex items-center">
@@ -75,31 +97,59 @@ export default function LeftTopMenu(session: any) {
       <div className="hidden md:flex items-center space-x-4">
         <span className="text-xl font-bold text-c1">JobFair</span>
         <ul className="menu menu-horizontal px-1 space-x-4">
+          {/* Home */}
           <li>
             <Link href="/" className="flex items-center">
               <HomeIcon size={24} />
               Home
             </Link>
           </li>
+          {/* Companies */}
           <li>
-            <Link href="/" className="flex items-center">
+            <Link
+              href={
+                session?.session?.user?.role === "admin"
+                  ? "/admin/company"
+                  : "/booking"
+              }
+              className="flex items-center"
+            >
               <Building size={24} />
               Companies
             </Link>
           </li>
-          <li>
-            <Link href="/" className="flex items-center">
-              <CircleUser size={24} />
-              My Profile
-            </Link>
-          </li>
+          {/* Show My Profile if user is logged in */}
+          {session?.session?.user && (
+            <li>
+              <Link
+                href={
+                  session?.session?.user?.role === "admin"
+                    ? "/admin/booking"
+                    : "/user"
+                }
+                className="flex items-center"
+              >
+                <CircleUser size={24} />
+                {session?.session?.user?.role === "admin"
+                  ? "Manage Booking"
+                  : "My Profile"}
+              </Link>
+            </li>
+          )}
           {/* Show Manage Company if user is admin */}
           {session?.session?.user?.role === "admin" && (
             <li>
-              <a className="flex items-center">
+              <Link
+                href={
+                  session?.session?.user?.role === "admin"
+                    ? "/admin/booking"
+                    : "/user"
+                }
+                className="flex items-center"
+              >
                 <UserCog size={24} />
                 Manage Company
-              </a>
+              </Link>
             </li>
           )}
         </ul>
