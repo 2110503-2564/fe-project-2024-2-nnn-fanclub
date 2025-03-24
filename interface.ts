@@ -7,6 +7,7 @@ interface AuthenticationUserApi {
 
 interface UserApi {
     success: boolean;
+    message: string;
     token?: string;
     data?: UserModel;
 }
