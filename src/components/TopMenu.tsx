@@ -1,6 +1,7 @@
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
+import { LogOut } from "lucide-react";
 import LeftTopMenu from "@/components/LeftTopMenu";
 
 export default function TopMenu() {
@@ -25,12 +26,11 @@ export default function TopMenu() {
             </li>
             <li>
               <button
-                className="w-full btn btn-ghost rounded-lg"
+                className="w-full btn btn-ghost rounded-lg flex items-center space-x-2"
                 onClick={() => signOut({ callbackUrl: '/' })}
               >
-                <span className="material-icons text-sm md:text-base">
-                  Logout
-                </span>
+                <LogOut className="text-sm md:text-base" />
+                <span className="hidden md:inline text-sm md:text-base">Logout</span>
               </button>
             </li>
           </ul>
