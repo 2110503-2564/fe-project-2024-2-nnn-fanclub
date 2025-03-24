@@ -45,9 +45,9 @@ export default function CompanyCard({ company }: CompanyCardProps) {
         <div className="card-actions mt-2">
           {
             session ? (
-              <button className="btn w-full border border-storke bg-white text-black rounded-md text-xs md:text-sm hover:bg-gray-100 hover:border-black">
+              <Links href={`/user/booking/new?id=${company._id}`} className="btn w-full border border-storke bg-white text-black rounded-md text-xs md:text-sm hover:bg-gray-100 hover:border-black">
                 Book
-              </button>
+              </Links>
             ) : (
               <Links href="/auth/signin" className="btn w-full border border-storke bg-white text-black rounded-md text-xs md:text-sm hover:bg-gray-100 hover:border-black">
                 Sign in to book
