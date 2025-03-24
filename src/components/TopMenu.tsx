@@ -26,7 +26,7 @@ export default function TopMenu() {
             <li>
               <button
                 className="w-full btn btn-ghost rounded-lg"
-                onClick={() => signOut()}
+                onClick={() => signOut({ callbackUrl: '/' })}
               >
                 <span className="material-icons text-sm md:text-base">
                   Logout

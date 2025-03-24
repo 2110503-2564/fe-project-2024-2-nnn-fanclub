@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import getMe from "@/libs/getMe";
 import InterviewCard from "@/components/InterviewCard";
 import getUserBooking from "@/libs/getUserBooking";
+import dayjs from "dayjs";
 
 interface ProfileCardProps {
   user: UserModel;
@@ -75,7 +76,7 @@ export default function booking() {
           <div className="font-bold text-center text-2xl md:text-3xl">
             My Interviews
           </div>
-          {(() => {
+          {/* {(() => {
             const interviewCards = [];
             for (let i = 0; i < 3; i++) {
               interviewCards.push(
@@ -89,7 +90,24 @@ export default function booking() {
               );
             }
             return interviewCards;
-          })()}
+          })()} */}
+            {booking?.data && Array.isArray(booking.data) && booking.data.length > 0 ? (
+            <div className="space-y-4 md:space-y-6">
+              {booking.data.map((booking: BookingModel, index: number) => (
+              <InterviewCard
+                key={index}
+                companyName={booking.company.name}
+                bookingDate={dayjs(booking.apptDate).format("YYYY-MM-DD")}
+                onEdit={() => console.log("Edit")}
+                onRemove={() => console.log("Remove")}
+              />
+              ))}
+            </div>
+            ) : (
+            <div className="text-center text-lg">
+              You have no interview scheduled
+            </div>
+            )}
         </div>
       </div>
     </div>
