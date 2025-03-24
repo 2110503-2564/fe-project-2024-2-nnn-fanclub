@@ -1,24 +1,20 @@
 "use client";
-
-import { useEffect, useState } from "react";
-import TopMenu from "@/components/TopMenu";
 import CardPanel from "@/components/CardPanel";
+import Header from "@/components/Header";
+import TopMenu from "@/components/TopMenu";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import HomePage from "@/components/HomePage";
 
-export default function Home() {
+export default function booking() {
   const [companies, setCompanies] = useState<CompanyModel[]>([]); // Store all companies
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch all company data from the API
     const fetchCompanies = async () => {
       try {
-        const response = await axios.get<CompaniesApi>(
-          `${process.env.BASE_API_URL}/companies` // API endpoint
-        );
+        const response = await axios.get(`${process.env.BASE_API_URL}/companies`);
         if (response.data.success) {
-          setCompanies(response.data.data as CompanyModel[]); // Assuming the API returns an array
+          setCompanies(response.data.data as CompanyModel[]);
         }
       } catch (error) {
         console.error("Error fetching company data:", error);
@@ -31,13 +27,15 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-c2">
-      {/* Topmenu */}
+    <div>
       <TopMenu />
-
-      {/* Page Content */}
+      <Header
+        header="Participating Companies"
+        description="Browse all companies participating in our online job fair"
+        buttonType="none"
+      />
+      {/* Companies List */}
       <div className="flex flex-col items-center gap-4 flex-grow">
-        <HomePage />
         {loading ? (
           <p>Loading...</p>
         ) : companies.length > 0 ? (
