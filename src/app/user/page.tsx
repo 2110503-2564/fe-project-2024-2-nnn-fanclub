@@ -138,6 +138,7 @@ export default function ProfileUser() {
               {booking.data.map((booking: BookingModel, index: number) => (
                 <InterviewCard
                   key={index}
+                  name="none"
                   companyName={booking.company.name}
                   bookingDate={dayjs(booking.apptDate).format("YYYY-MM-DD")}
                   onEdit={() => {
