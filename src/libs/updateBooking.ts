@@ -26,8 +26,8 @@ export default function updateBooking(
       return { ...res.data, message: "UPDATE_OK" };
     })
     .catch((err) => {
-      if (dayjs(apptDate).utc().get("date") > 13 || dayjs(apptDate).utc().get("date") < 10) {
-        return { success: false, message: "Invalid date (It's between 10-13 only!)" };
+      if (dayjs(apptDate).utc().get("date") > 13 || dayjs(apptDate).utc().get("date") < 10 || dayjs(apptDate).utc().get("y") != 2022 || dayjs(apptDate).utc().get("month") != 4) {
+        return { success: false, message: "Invalid date (It's between 10-13 May 2022 only!)" };
       }
 
       return { success: false, message: err };
