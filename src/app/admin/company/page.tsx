@@ -8,6 +8,8 @@ import { deleteCompany } from "@/libs/deleteCompany";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import getStats from "@/libs/getStats";
+import CardStats from "@/components/CardStats";
 
 export default function ManageCompanyPage() {
   
@@ -80,9 +82,7 @@ export default function ManageCompanyPage() {
   };
 
   return (
-    
     <main>
-      
       {/* dialog remove */}
       <dialog id="modal-remove" className="modal">
         <div className="modal-box">
@@ -104,6 +104,7 @@ export default function ManageCompanyPage() {
         </div>
       </dialog>
       {/* Header */}
+      <CardStats />
       <Header
         header="Manage Company"
         description="Manage companies for Admin"

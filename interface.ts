@@ -42,6 +42,18 @@ interface Pagination {
     maxPage: number;
 }
 
+// controllers/stats.js
+interface StatsApi {
+    success: boolean;
+    data?: StatsModel;
+    message?: string;
+}
+
+interface StatsModel {
+    totalBooking: number;
+    totalCompany: number;
+}
+
 // models/Booking.js
 interface BookingModel {
     _id: string;
