@@ -39,7 +39,7 @@ export default function FormCompany({ action }: { action: string }) {
     if (session && action === "update") {
       if (!searchParams.has("id")) {
         router.push("/admin/company");
-        toast.error("Invalid URL. Redirecting to booking page.");
+        toast.error("Invalid URL. Redirecting to company page.");
       }
       const companyId = searchParams.get("id");
 
@@ -100,8 +100,8 @@ export default function FormCompany({ action }: { action: string }) {
             });
           },
           {
-            loading: "Creating booking...",
-            success: "Created booking successfully.",
+            loading: "Creating company...",
+            success: "Created company successfully.",
             error: (err) => err.message || "Failed to create booking.",
           }
         );
@@ -129,9 +129,9 @@ export default function FormCompany({ action }: { action: string }) {
             });
           },
           {
-            loading: "Creating booking...",
-            success: "Created booking successfully.",
-            error: (err) => err.message || "Failed to create booking.",
+            loading: "Creating company...",
+            success: "Created company successfully.",
+            error: (err) => err.message || "Failed to create company.",
           }
         );
       }
