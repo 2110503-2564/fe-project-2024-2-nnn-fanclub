@@ -7,7 +7,6 @@ export default function LeftTopMenu(session: any) {
   const pathname = usePathname();
 
   const isActive = (path: string) => {
-    console.log(pathname);
     return pathname === path
       ? "underline underline-offset-2 text-base text-black"
       : "";

@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { userRegister } from "@/libs/uerRegister";
 import { useSession } from "next-auth/react";
-import { Mail, KeyRound, CircleX, User, Phone } from "lucide-react";
+import Links from "next/link";
+import { Mail, KeyRound, CircleX, User, Phone, Lock } from "lucide-react";
 
 export default function RegisterPage() {
   const { data: session } = useSession();
@@ -77,7 +78,7 @@ export default function RegisterPage() {
     >
       <div className="bg-c2 p-8 rounded-2xl shadow-xl w-96 text-center">
         <div className="flex justify-center">
-          <div className="w-24 h-24 rounded-full bg-c1">NNN</div>
+          <Lock size={30} />
         </div>
         <h2 className="text-xl font-bold mt-4">Register here</h2>
         {error && (
@@ -164,6 +165,11 @@ export default function RegisterPage() {
             <span className="text-sm">{loading ? "Registering..." : "Register"}</span>
           </span>
         </button>
+        <div className="divider mt-6"></div>
+        <p className="text-sm">
+          Do you have an account?{' '}
+          <Links href="/auth/signin" className="font-bold underline">Login here.</Links>
+        </p>
       </div>
     </form>
   );
