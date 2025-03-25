@@ -21,7 +21,6 @@ interface ProfileCardProps {
   user: UserModel;
 }
 
-
 export default function AdminManageBooking() {
   const { data: session } = useSession();
   const router = useRouter();
@@ -32,6 +31,7 @@ export default function AdminManageBooking() {
   const [removeRef, setRemoveRef] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [selectedDay, setSelectedDay] = useState<string>(""); // Selected day for filtering
 
   // Fetch User Data
   useEffect(() => {
@@ -49,13 +49,13 @@ export default function AdminManageBooking() {
     fetchUser();
   }, [session]);
 
-  // Fetch Booking Data with Pagination
+  // Fetch Booking Data with Pagination and Day Filter
   useEffect(() => {
-    const fetchBookings = async (page: number) => {
+    const fetchBookings = async (page: number, day: string) => {
       try {
         setLoading(true);
         const res = await axios.get<BookingApi>(
-          `${process.env.BASE_API_URL}/bookings?page=${page}`,
+          `${process.env.BASE_API_URL}/bookings?page=${page}&day=${day}`,
           {
             headers: {
               Authorization: `Bearer ${session?.verifiedToken}`,
@@ -72,8 +72,8 @@ export default function AdminManageBooking() {
         setLoading(false);
       }
     };
-    fetchBookings(currentPage);
-  }, [currentPage, session]);
+    fetchBookings(currentPage, selectedDay);
+  }, [currentPage, session, selectedDay]);
 
   const handlePageChange = (direction: "prev" | "next") => {
     if (direction === "prev" && currentPage > 1) {
@@ -83,7 +83,11 @@ export default function AdminManageBooking() {
     }
   };
 
-  // For Remove Button
+  const handleDayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedDay(event.target.value);
+    setCurrentPage(1); // Reset to the first page when changing the day
+  };
+
   const removeDialog = async (bookingId: string) => {
     setRemoveRef(bookingId);
     const modal = document.getElementById(
@@ -155,6 +159,24 @@ export default function AdminManageBooking() {
         <div className="w-full md:w-[75%] bg-c2 p-2 md:p-6 space-y-4 md:space-y-6 border-2 border-storke rounded-xl">
           <div className="font-bold text-center text-2xl md:text-3xl">
             My Interviews
+          </div>
+          {/* Day Filter */}
+          <div className="flex justify-center items-center gap-4">
+            <label htmlFor="day-select" className="font-bold">
+              Select Day:
+            </label>
+            <select
+              id="day-select"
+              className="select select-bordered"
+              value={selectedDay}
+              onChange={handleDayChange}
+            >
+              <option value="">All Days</option>
+              <option value="10">May 10</option>
+              <option value="11">May 11</option>
+              <option value="12">May 12</option>
+              <option value="13">May 13</option>
+            </select>
           </div>
           {bookings && bookings.length > 0 ? (
             <>
