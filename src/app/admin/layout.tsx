@@ -4,10 +4,10 @@ import TopMenu from "@/components/TopMenu";
 
 export default function AdminLayout({children}: {children: React.ReactNode}) {
     return (
-        <div>
-            <TopMenu />
-            {children}
-            <Footer />
-        </div>
-    )
+      <div className="mt-[10vh]">
+        <TopMenu />
+        {children}
+        <Footer />
+      </div>
+    );
 }

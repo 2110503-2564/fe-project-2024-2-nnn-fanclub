@@ -8,10 +8,7 @@ export default function TopMenu() {
   const { data: session } = useSession();
 
   return (
-    <div
-      className="navbar bg-c2 shadow-md border-b flex justify-between"
-      color="c2"
-    >
+    <div className="navbar z-100 top-0 fixed shadow-md border-storke flex justify-between bg-opacity-50 backdrop-blur-2xl">
       {/* Left Section */}
       <div className="flex">
         <LeftTopMenu session={session} />
@@ -27,10 +24,12 @@ export default function TopMenu() {
             <li>
               <button
                 className="w-full btn btn-ghost rounded-lg flex items-center space-x-2"
-                onClick={() => signOut({ callbackUrl: '/' })}
+                onClick={() => signOut({ callbackUrl: "/" })}
               >
                 <LogOut className="text-sm md:text-base" />
-                <span className="hidden md:inline text-sm md:text-base">Logout</span>
+                <span className="hidden md:inline text-sm md:text-base">
+                  Logout
+                </span>
               </button>
             </li>
           </ul>

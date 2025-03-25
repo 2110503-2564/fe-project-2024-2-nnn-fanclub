@@ -5,6 +5,7 @@ import { Mail, KeyRound, CircleX, Lock } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function LoginPage() {
     setLoading(true);
     e.preventDefault();
     setError('');
-
+    toast.loading('Signing in ...');
     const res = await signIn('credentials', {
       email,
       password,
@@ -25,9 +26,13 @@ export default function LoginPage() {
     });
 
     if (res?.error) {
+      toast.dismiss();
+      toast.error("Error: " + res.error);
       setError(res.error);
       setLoading(false);
     } else {
+      toast.dismiss();
+      toast.success("Logined successfully");
       router.push('/');
     }
   }

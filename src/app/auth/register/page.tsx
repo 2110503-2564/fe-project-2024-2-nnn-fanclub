@@ -6,6 +6,7 @@ import { signIn } from "next-auth/react";
 import { userRegister } from "@/libs/uerRegister";
 import { useSession } from "next-auth/react";
 import Links from "next/link";
+import toast from "react-hot-toast";
 import { Mail, KeyRound, CircleX, User, Phone, Lock } from "lucide-react";
 
 export default function RegisterPage() {
@@ -36,21 +37,28 @@ export default function RegisterPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    toast.loading("Registering ...");
 
     try {
       const res = await userRegister({ ...formData } as UserModel);
       if (res.message !== "Register Success") {
+        toast.dismiss();
+        toast.error("Error: " + res.message);
         setError(res.message);
         setLoading(false);
         return;
       }
     } catch (err) {
+      toast.dismiss();
+      toast.error("Error: Try again later.");
       setError("Registration failed. Please try again.");
       setLoading(false);
       return;
     }
 
     try {
+      toast.dismiss();
+      toast.loading("Signing in ...");
       const result = await signIn("credentials", {
         redirect: false,
         email: formData.email,
@@ -58,11 +66,17 @@ export default function RegisterPage() {
       });
 
       if (result?.error) {
+        toast.dismiss();
+        toast.error("Error: " + result.error);
         setError("Auto-login failed. Please log in manually.");
       } else {
+        toast.dismiss();
+        toast.success("Registered successfully");
         router.replace("/");
       }
     } catch (err) {
+      toast.dismiss();
+      toast.error("Error: Try again later.");
       setError("Registration failed. Please try again.");
     }
 
