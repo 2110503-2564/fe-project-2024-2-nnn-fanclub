@@ -39,7 +39,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-c2">
+    <div className="flex flex-col min-h-screen bg-c2 mt-[10vh]">
       <TopMenu />
       <div className="flex flex-col items-center gap-y-4 flex-grow">
         <HomePage />
