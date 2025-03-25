@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import getCompanies from "@/libs/getCompanies";
-import { deleteBooking } from "@/libs/deleteBooking";
+import {deleteCompany} from "@/libs/deleteCompany"
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation"
 
@@ -51,7 +51,7 @@ export default function ManageCompanyPage() {
   const removeAction = async () => {
     if (removeRef && session) {
       toast
-        .promise(deleteBooking(session.verifiedToken, removeRef), {
+        .promise(deleteCompany(session.verifiedToken, removeRef), {
           loading: "Loading...",
           success: "Remove successfully!",
           error: "Error can't remove company",
