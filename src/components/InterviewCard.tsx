@@ -49,7 +49,7 @@ export default function InterviewCard({
             e.preventDefault();
             onEdit();
           }}
-          className="px-3 md:px-6 py-1 md:py-2 m-0 border border-storke rounded-md hover:bg-gray-200 transition duration-300"
+          className="px-3 md:px-6 py-1 md:py-2 m-0 border border-storke rounded-md hover:bg-gray-200 transition duration-300 cursor-pointer"
         >
           <div className="text-black text-sx md:text-base">Edit Booking</div>
         </button>
@@ -58,7 +58,7 @@ export default function InterviewCard({
             e.preventDefault();
             onRemove();
           }}
-          className="px-3 md:px-6 py-1 md:py-2 border border-storke rounded-md  bg-bgred hover:bg-red-400 hover:border-black border-1 transition duration-300"
+          className="px-3 md:px-6 py-1 md:py-2 border border-storke rounded-md  bg-bgred hover:bg-red-400 hover:border-black border-1 transition duration-300 cursor-pointer"
         >
           <div className="text-black text-sm md:text-base">Remove Booking</div>
         </button>

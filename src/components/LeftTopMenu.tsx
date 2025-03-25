@@ -1,7 +1,18 @@
+"use client";
 import { HomeIcon, Building, CircleUser, UserCog } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function LeftTopMenu(session: any) {
+  const pathname = usePathname();
+
+  const isActive = (path: string) => {
+    console.log(pathname);
+    return pathname === path
+      ? "underline underline-offset-2 text-base text-black"
+      : "";
+  };
+
   return (
     <div className="flex items-center space-x-4">
       {/* icon */}
@@ -42,7 +53,10 @@ export default function LeftTopMenu(session: any) {
             >
               {/* Home */}
               <li>
-                <Link href="/" className="flex items-center">
+                <Link
+                  href="/"
+                  className={`flex items-center ${isActive("/")}`}
+                >
                   <HomeIcon size={24} />
                   Home
                 </Link>
@@ -51,7 +65,9 @@ export default function LeftTopMenu(session: any) {
               <li>
                 <Link
                   href="/booking"
-                  className="flex items-center"
+                  className={`flex items-center ${isActive(
+                    "/booking"
+                  )}`}
                 >
                   <Building size={24} />
                   Companies
@@ -66,7 +82,11 @@ export default function LeftTopMenu(session: any) {
                         ? "/admin/booking"
                         : "/user"
                     }
-                    className="flex items-center"
+                    className={`flex items-center ${isActive(
+                      session?.session?.user?.role === "admin"
+                        ? "/admin/booking"
+                        : "/user"
+                    )}`}
                   >
                     <CircleUser size={24} />
                     {session?.session?.user?.role === "admin"
@@ -78,7 +98,12 @@ export default function LeftTopMenu(session: any) {
               {/* Show Manage Company if user is admin */}
               {session?.session?.user?.role === "admin" && (
                 <li>
-                  <Link href="/admin/company" className="flex items-center">
+                  <Link
+                    href="/admin/company"
+                    className={`flex items-center ${isActive(
+                      "/admin/company"
+                    )}`}
+                  >
                     <UserCog size={24} />
                     Manage Company
                   </Link>
@@ -95,7 +120,7 @@ export default function LeftTopMenu(session: any) {
         <ul className="menu menu-horizontal px-1 space-x-4">
           {/* Home */}
           <li>
-            <Link href="/" className="flex items-center">
+            <Link href="/" className={`flex items-center ${isActive("/")}`}>
               <HomeIcon size={24} />
               Home
             </Link>
@@ -104,7 +129,7 @@ export default function LeftTopMenu(session: any) {
           <li>
             <Link
               href="/booking"
-              className="flex items-center"
+              className={`flex items-center ${isActive("/booking")}`}
             >
               <Building size={24} />
               Companies
@@ -119,7 +144,11 @@ export default function LeftTopMenu(session: any) {
                     ? "/admin/booking"
                     : "/user"
                 }
-                className="flex items-center"
+                className={`flex items-center ${isActive(
+                  session?.session?.user?.role === "admin"
+                    ? "/admin/booking"
+                    : "/user"
+                )}`}
               >
                 <CircleUser size={24} />
                 {session?.session?.user?.role === "admin"
@@ -131,7 +160,10 @@ export default function LeftTopMenu(session: any) {
           {/* Show Manage Company if user is admin */}
           {session?.session?.user?.role === "admin" && (
             <li>
-              <Link href="/admin/company" className="flex items-center">
+              <Link
+                href="/admin/company"
+                className={`flex items-center ${isActive("/admin/company")}`}
+              >
                 <UserCog size={24} />
                 Manage Company
               </Link>

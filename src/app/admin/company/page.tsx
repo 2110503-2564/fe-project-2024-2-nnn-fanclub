@@ -4,40 +4,53 @@ import Header from "@/components/Header";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import getCompanies from "@/libs/getCompanies";
-import { deleteBooking } from "@/libs/deleteBooking";
+import { deleteCompany } from "@/libs/deleteCompany";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function ManageCompanyPage() {
+  
   const { data: session } = useSession();
   const router = useRouter();
 
   const [companies, setCompanies] = useState<CompanyModel[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [removeRef, setRemoveRef] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  //fetch Data
+  // Fetch Data
   useEffect(() => {
-    //fetch Companies
-    const fectchCompanies = async () => {
+    const fetchCompanies = async (page: number) => {
       try {
-        const res = await getCompanies(session?.verifiedToken as string);
-        if (!res.success) {
-          throw new Error(`error : ${res.message}`);
+        setLoading(true);
+        const res = await axios.get<CompaniesApi>(
+          `${process.env.BASE_API_URL}/companies?page=${page}`
+        );
+        if (res.data.success) {
+          setCompanies(res.data.data as CompanyModel[]);
+          setTotalPages(res.data.pagination?.maxPage as number);
         }
-        setCompanies(res.data as CompanyModel[]);
-        console.log("Companies: ", companies);
       } catch (error) {
         console.error("Error fetching company data:", error);
       } finally {
         setLoading(false);
       }
     };
-    fectchCompanies();
-  }, [session]);
-  if(loading) return <div>Loading...</div>;
+    fetchCompanies(currentPage);
+  }, [currentPage, session]);
 
-  // for remove Button
+  const handlePageChange = (direction: "prev" | "next") => {
+    setLoading(true);
+    if (direction === "prev" && currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    } else if (direction === "next" && currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  // For Remove Button
   const removeDialog = async (bookingId: string) => {
     setRemoveRef(bookingId);
     const modal = document.getElementById(
@@ -51,13 +64,15 @@ export default function ManageCompanyPage() {
   const removeAction = async () => {
     if (removeRef && session) {
       toast
-        .promise(deleteBooking(session.verifiedToken, removeRef), {
+        .promise(deleteCompany(session.verifiedToken, removeRef), {
           loading: "Loading...",
           success: "Remove successfully!",
           error: "Error can't remove company",
         })
         .then(() => {
-          window.location.reload();
+          setCompanies((prev) =>
+            prev ? prev.filter((company) => company._id !== removeRef) : null
+          );
         });
     } else {
       toast.error("Error can't remove company");
@@ -65,12 +80,14 @@ export default function ManageCompanyPage() {
   };
 
   return (
+    
     <main>
+      
       {/* dialog remove */}
       <dialog id="modal-remove" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Comfirm Delete ?</h3>
-          <p className="py-4">Are you confirm to delete this company</p>
+          <h3 className="font-bold text-lg">Confirm Delete?</h3>
+          <p className="py-4">Are you sure you want to delete this company?</p>
           <div className="modal-action">
             <form method="dialog">
               <div className="flex gap-x-2">
@@ -103,20 +120,42 @@ export default function ManageCompanyPage() {
           {loading ? (
             <p>Loading...</p>
           ) : companies ? (
-            companies.map((company: CompanyModel) => (
-              <CompanyCardManage
-                key={company._id}
-                name={company.name}
-                description={company.description}
-                address={company.address}
-                telephone={company.telephone}
-                website={company.website}
-                onEdit={() => {
-                  router.push(`/admin/company/manage?id=${company._id}`);
-                }}
-                onRemove={() => removeDialog(company._id)}
-              />
-            ))
+            <>
+              {companies.map((company: CompanyModel) => (
+                <CompanyCardManage
+                  key={company._id}
+                  name={company.name}
+                  description={company.description}
+                  address={company.address}
+                  telephone={company.telephone}
+                  website={company.website}
+                  onEdit={() => {
+                    router.push(`/admin/company/manage?id=${company._id}`);
+                  }}
+                  onRemove={() => removeDialog(company._id)}
+                />
+              ))}
+              {/* Pagination */}
+              <div className="flex justify-center items-center gap-4 mt-4">
+                <button
+                  className="btn btn-outline"
+                  onClick={() => handlePageChange("prev")}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                <span>
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  className="btn btn-outline"
+                  onClick={() => handlePageChange("next")}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </div>
+            </>
           ) : (
             <div className="text-center text-xl text-red-700">
               No company data available

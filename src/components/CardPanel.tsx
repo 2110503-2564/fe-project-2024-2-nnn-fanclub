@@ -18,7 +18,7 @@ export default function CardPanel({ companies, currentPage, totalPages, onPageCh
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 mx-2 bg-gray-300 rounded disabled:opacity-50"
+          className="text-black bg-white border border-storke disable:hover:border-black py-2 px-4 rounded-lg font-semibold text-base transition duration-300 ease-in-out transform disable:hover:scale-105 disable:hover:shadow-lg disabled:opacity-50 cursor-pointer"
         >
           Previous
         </button>
@@ -26,7 +26,7 @@ export default function CardPanel({ companies, currentPage, totalPages, onPageCh
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 mx-2 bg-gray-300 rounded disabled:opacity-50"
+          className="text-black bg-white border border-storke disable:hover:border-black py-2 px-4 rounded-lg font-semibold text-base transition duration-300 ease-in-out transform disable:hover:scale-105 disable:hover:shadow-lg disabled:opacity-50 cursor-pointer"
         >
           Next
         </button>

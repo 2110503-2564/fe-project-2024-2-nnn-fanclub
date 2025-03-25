@@ -1,10 +1,10 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import TopMenu from "@/components/TopMenu";
 import CardPanel from "@/components/CardPanel";
 import axios from "axios";
 import HomePage from "@/components/HomePage";
+import CarouselImg from "@/components/CarouselImg";
 
 export default function Home() {
   const [companies, setCompanies] = useState<CompanyModel[]>([]);
@@ -40,8 +40,11 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-c2">
       <TopMenu />
-      <div className="flex flex-col items-center gap-4 flex-grow">
+      <div className="flex flex-col items-center gap-y-4 flex-grow">
         <HomePage />
+
+        <CarouselImg/>
+        {/* Companies List */}
         {loading ? (
           <p>Loading...</p>
         ) : companies.length > 0 ? (
