@@ -24,9 +24,21 @@ interface BookingApi {
 interface CompaniesApi {
     success: boolean;
     count?: number;
-    pagination?: Object;
+    pagination?: Pagination;
     data?: CompanyModel[] | CompanyModel;
     message?: string;
+}
+
+interface Pagination {
+    next?: {
+        page: number;
+        limit: number;
+    };
+    prev?: {
+        page: number;
+        limit: number;
+    };
+    maxPage: number;
 }
 
 // models/Booking.js
