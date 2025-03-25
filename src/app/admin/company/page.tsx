@@ -104,13 +104,14 @@ export default function ManageCompanyPage() {
         </div>
       </dialog>
       {/* Header */}
-      <CardStats />
       <Header
         header="Manage Company"
         description="Manage companies for Admin"
         buttonType="Create Company"
         role={session?.user.role as string}
       />
+      {/* Stat */}
+      <CardStats />
       {/* Companies List */}
       <div className="w-screen bg-white py-4 md:p-4">
         <div className="bg-c2 p-2 md:p-6 space-y-4 md:space-y-6 mx-6 border-2 border-storke rounded-xl">
