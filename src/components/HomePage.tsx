@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <div className="bg-c2 flex flex-col items-center w-screen h-auto pb-8 md:pb-12">
+    <div className="bg-c2 flex flex-col items-center w-screen h-auto pb-3">
       {/* Header Section */}
       <header className="text-center py-6">
         <h1 className="text-2xl md:text-5xl font-bold mt-3 md:mt-5">Job Fair 2022</h1>

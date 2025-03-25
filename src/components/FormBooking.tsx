@@ -131,9 +131,9 @@ export default function FormBooking({ action }: { action: string }) {
             });
           },
           {
-            loading: "Creating booking...",
-            success: "Created booking successfully.",
-            error: (err) => err.message || "Failed to create booking.",
+            loading: "Update booking...",
+            success: "Updated booking successfully.",
+            error: (err) => err.message || "Failed to update booking.",
           }
         );
       }
