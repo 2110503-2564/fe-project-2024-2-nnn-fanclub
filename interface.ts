@@ -16,6 +16,7 @@ interface UserApi {
 interface BookingApi {
     success: boolean;
     count?: number;
+    pagination?: Pagination;
     data?: BookingModel[] | BookingModel;
     message?: string;
 }
