@@ -140,8 +140,9 @@ export default function AdminManageBooking() {
                   key={index}
                   companyName={booking.company.name}
                   bookingDate={dayjs(booking.apptDate).format("YYYY-MM-DD")}
+                  name={booking.user.name}
                   onEdit={() => {
-                    router.push(`/admin/booking/${booking._id}`);
+                    router.push(`/admin/booking/manage?id=${booking._id}`);
                   }}
                   onRemove={() => removeDialog(booking._id)}
                 />
