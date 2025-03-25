@@ -13,6 +13,7 @@ import axios from "axios";
 
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import CardStats from "@/components/CardStats";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -147,6 +148,8 @@ export default function AdminManageBooking() {
         buttonType="Book an Interview"
         role="admin"
       />
+      {/* Stat */}
+      <CardStats />
       {/* Content */}
       <div className="flex flex-col md:flex-row align-start justify-center py-10 px-2 bg-white gap-6">
         {/* Profile Card */}
@@ -185,7 +188,9 @@ export default function AdminManageBooking() {
                   <InterviewCard
                     key={index}
                     companyName={booking.company.name}
-                    bookingDate={dayjs(booking.apptDate).utc().format("YYYY-MM-DD")}
+                    bookingDate={dayjs(booking.apptDate)
+                      .utc()
+                      .format("YYYY-MM-DD")}
                     name={booking.user.name}
                     onEdit={() => {
                       router.push(`/admin/booking/manage?id=${booking._id}`);

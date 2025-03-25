@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function CarouselImg() {
   return (
-    <div className="carousel w-full h-[30vh] md:h-[50vh]">
+    <div className="carousel w-full h-[30vh] md:h-[50vh] m-[-18px]">
       <div id="slide1" className="carousel-item relative w-full">
         <Image alt="img1" src="/imageC1.png" objectFit="cover" fill={true} />
         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
