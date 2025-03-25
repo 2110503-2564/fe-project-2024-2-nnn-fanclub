@@ -89,7 +89,6 @@ export default function FormBooking({ action }: { action: string }) {
   //(3)Handle confirm button click
   const handleConfirm = async () => {
     if (session && selectedCompany) {
-      console.log("token: ", session.verifiedToken, ", action: ", action);
       //create booking
       if (action === "create") {
         toast.promise(
@@ -116,7 +115,6 @@ export default function FormBooking({ action }: { action: string }) {
       }
       //update booking
       else {
-        console.log(selectedDate.utc().toISOString());
         toast.promise(
           async () => {
             await updateBooking(
@@ -133,9 +131,9 @@ export default function FormBooking({ action }: { action: string }) {
             });
           },
           {
-            loading: "Creating booking...",
-            success: "Created booking successfully.",
-            error: (err) => err.message || "Failed to create booking.",
+            loading: "Update booking...",
+            success: "Updated booking successfully.",
+            error: (err) => err.message || "Failed to update booking.",
           }
         );
       }

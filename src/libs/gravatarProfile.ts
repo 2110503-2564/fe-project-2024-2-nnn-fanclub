@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createHash } from "node:crypto";
+import { createHash } from "crypto";
 
 export default async function gravatarProfile(email: string) {
   let emailHash = createHash("sha256");

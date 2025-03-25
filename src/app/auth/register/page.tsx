@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { userRegister } from "@/libs/uerRegister";
 import { useSession } from "next-auth/react";
-import { Mail, KeyRound, CircleX, User, Phone } from "lucide-react";
+import Links from "next/link";
+import toast from "react-hot-toast";
+import { Mail, KeyRound, CircleX, User, Phone, Lock } from "lucide-react";
 
 export default function RegisterPage() {
   const { data: session } = useSession();
@@ -35,21 +37,28 @@ export default function RegisterPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
+    toast.loading("Registering ...");
 
     try {
       const res = await userRegister({ ...formData } as UserModel);
       if (res.message !== "Register Success") {
+        toast.dismiss();
+        toast.error("Error: " + res.message);
         setError(res.message);
         setLoading(false);
         return;
       }
     } catch (err) {
+      toast.dismiss();
+      toast.error("Error: Try again later.");
       setError("Registration failed. Please try again.");
       setLoading(false);
       return;
     }
 
     try {
+      toast.dismiss();
+      toast.loading("Signing in ...");
       const result = await signIn("credentials", {
         redirect: false,
         email: formData.email,
@@ -57,11 +66,17 @@ export default function RegisterPage() {
       });
 
       if (result?.error) {
+        toast.dismiss();
+        toast.error("Error: " + result.error);
         setError("Auto-login failed. Please log in manually.");
       } else {
+        toast.dismiss();
+        toast.success("Registered successfully");
         router.replace("/");
       }
     } catch (err) {
+      toast.dismiss();
+      toast.error("Error: Try again later.");
       setError("Registration failed. Please try again.");
     }
 
@@ -77,7 +92,7 @@ export default function RegisterPage() {
     >
       <div className="bg-c2 p-8 rounded-2xl shadow-xl w-96 text-center">
         <div className="flex justify-center">
-          <div className="w-24 h-24 rounded-full bg-c1">NNN</div>
+          <Lock size={30} />
         </div>
         <h2 className="text-xl font-bold mt-4">Register here</h2>
         {error && (
@@ -164,6 +179,11 @@ export default function RegisterPage() {
             <span className="text-sm">{loading ? "Registering..." : "Register"}</span>
           </span>
         </button>
+        <div className="divider mt-6"></div>
+        <p className="text-sm">
+          Do you have an account?{' '}
+          <Links href="/auth/signin" className="font-bold underline">Login here.</Links>
+        </p>
       </div>
     </form>
   );

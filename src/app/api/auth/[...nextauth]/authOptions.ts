@@ -25,7 +25,6 @@ export const authOptions: AuthOptions = {
 
                         const user2 = await getMe(user.token);
                         if (user2.data) {
-                            console.log(typeof verifiedToken);
                             return {
                                 id: user2.data._id || "",
                                 name: user2.data.name,
