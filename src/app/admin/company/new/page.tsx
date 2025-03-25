@@ -11,7 +11,7 @@ export default function EditBooking() {
         role="admin"
       />
       {/* Content */}
-      <FormCompany/>
+      <FormCompany action="create"/>
     </main>
   );
 }

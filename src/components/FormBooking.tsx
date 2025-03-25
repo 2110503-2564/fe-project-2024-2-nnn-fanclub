@@ -15,16 +15,19 @@ import updateBooking from "@/libs/updateBooking";
 import getBooking from "@/libs/getBooking";
 
 export default function FormBooking({ action }: { action: string }) {
+  //(0)initial setup
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
 
+  //(1)redirect path / fetch data for info in input
   useEffect(() => {
     if (!searchParams.has("id")) {
       router.push("/user/");
       toast.error("Invalid URL. Redirecting to booking page.");
     } else {
       const companyId = searchParams.get("id");
+      //fetch company API for create page(input company)
       if (companyId && session && action === "create") {
         getCompany(session.verifiedToken, companyId)
           .then((company) => {
@@ -42,7 +45,9 @@ export default function FormBooking({ action }: { action: string }) {
             toast.error("Failed to fetch company data.");
             console.error(error);
           });
-      } else if (companyId && session && action === "update") {
+      }
+      //fetch booking API for update page(input datePicker/booking)
+      else if (companyId && session && action === "update") {
         getBooking(session.verifiedToken, companyId)
           .then((company) => {
             if (!company.success) {
@@ -64,7 +69,7 @@ export default function FormBooking({ action }: { action: string }) {
     }
   }, []);
 
-  // State to manage the selected company and date
+  //(2)State to manage the selected company and date
   const [selectedCompany, setSelectedCompany] = useState("");
   const [selectedCompantName, setSelectedCompanyName] = useState("loading");
   const [selectedDate, setSelectedDate] = useState<Dayjs>(
@@ -75,7 +80,7 @@ export default function FormBooking({ action }: { action: string }) {
     setSelectedDate(e);
   };
 
-  // Handle confirm button click
+  //(3)Handle confirm button click
   const handleConfirm = async () => {
     if (session && selectedCompany) {
       console.log("token: ", session.verifiedToken, ", action: ", action);

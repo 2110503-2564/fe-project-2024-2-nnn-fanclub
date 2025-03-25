@@ -2,12 +2,12 @@ import axios from "axios";
 
 export default function updateBooking(
   token: string,
-  bookingId: string,
+  companyId: string,
   apptDate: string
 ): Promise<BookingApi> {
   return axios
     .put(
-      process.env.BASE_API_URL + `/bookings/${bookingId}`,
+      process.env.BASE_API_URL + `/bookings/${companyId}`,
       { apptDate },
       {
         headers: {
