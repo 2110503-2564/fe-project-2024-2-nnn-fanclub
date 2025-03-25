@@ -66,13 +66,13 @@ export default function InterviewCard({
           onClick={onEdit}
           className="px-3 md:px-6 py-1 md:py-2 m-0 border border-storke rounded-md hover:bg-gray-200 transition duration-300 cursor-pointer"
         >
-          <div className="text-black text-sx md:text-base">Edit Booking</div>
+          <div className="text-black text-sx md:text-base">Edit Company</div>
         </button>
         <button
           onClick={onRemove}
           className="px-3 md:px-6 py-1 md:py-2 border border-storke rounded-md  bg-bgred hover:bg-red-400 hover:border-black border-1 transition duration-300 cursor-pointer"
         >
-          <div className="text-black text-sm md:text-base">Remove Booking</div>
+          <div className="text-black text-sm md:text-base">Remove Company</div>
         </button>
       </div>
     </div>
