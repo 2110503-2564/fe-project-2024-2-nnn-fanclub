@@ -1,14 +1,18 @@
 import axios from "axios";
 
-export default function createBooking(
+export default function updateCompany(
   token: string,
   companyId: string,
-  apptDate: string
+  name: string,
+  address: string,
+  website: string,
+  description: string,
+  telephone: string
 ): Promise<BookingApi> {
   return axios
-    .post(
-      process.env.BASE_API_URL + `/companies/${companyId}/booking`,
-      { apptDate },
+    .put(
+      process.env.BASE_API_URL + `/companies/${companyId}`,
+      { name, address, website, description, telephone },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -17,7 +21,7 @@ export default function createBooking(
       }
     )
     .then((res) => {
-      return { ...res.data, message: "CREATE_OK" };
+      return { ...res.data, message: "UPDATE_OK" };
     })
     .catch((err) => {
       return { success: false, message: err };

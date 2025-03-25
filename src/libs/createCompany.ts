@@ -1,14 +1,17 @@
 import axios from "axios";
 
-export default function createBooking(
+export default function createCompany(
   token: string,
-  companyId: string,
-  apptDate: string
+  name: string,
+  address: string,
+  website: string,
+  description: string,
+  telephone: string
 ): Promise<BookingApi> {
   return axios
     .post(
-      process.env.BASE_API_URL + `/companies/${companyId}/booking`,
-      { apptDate },
+      process.env.BASE_API_URL + `/companies`,
+      { name, address, website, description, telephone },
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -1,16 +1,15 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { TextField, MenuItem, Button } from "@mui/material";
 import { Building, MapPin, Phone, Link } from "lucide-react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import getCompany from "@/libs/getCompany";
+import createCompany from "@/libs/createCompany";
+import updateCompany from "@/libs/updateCompany";
 
-export default function FormCompany() {
-  // State to manage
-  const [name, setName] = useState("before value name");
-  const [description, setDescription] = useState("before value description");
-  const [address, setAddress] = useState("before value address");
-  const [tele, setTele] = useState("before value tele");
-  const [website, setWebsite] = useState("before value website");
-
+export default function FormCompany({ action }: { action: string }) {
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -27,9 +26,116 @@ export default function FormCompany() {
     setWebsite(e.target.value);
   };
 
-  // Handle confirm button click
+  //=================================before=================================
+  //(0)initial setup
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { data: session } = useSession();
+
+  //(1)redirect path / fetch data for info in input
+  useEffect(() => {
+    //case action === "create" -> none
+    //fetch company API for update page(for info input)
+    if (session && action === "update") {
+      if (!searchParams.has("id")) {
+        router.push("/admin/company");
+        toast.error("Invalid URL. Redirecting to booking page.");
+      }
+      const companyId = searchParams.get("id");
+
+      if (companyId) {
+        getCompany(session.verifiedToken, companyId)
+          .then((company) => {
+            if (!company.success) {
+              toast.error("Not found company in system");
+            } else if (company.data) {
+              const obj = Array.isArray(company.data)
+                ? company.data[0]
+                : company.data;
+              console.log("obj: ", obj);
+              setName(obj.name);
+              setDescription(obj.description);
+              setAddress(obj.address);
+              setTele(obj.telephone);
+              setWebsite(obj.website);
+            }
+          })
+          .catch((error) => {
+            toast.error("Failed to fetch company data.");
+            console.error(error);
+          });
+      }
+    }
+  }, []);
+
+  //(2)State to manage
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [address, setAddress] = useState("");
+  const [tele, setTele] = useState("");
+  const [website, setWebsite] = useState("");
+
+  //(3)Handle confirm button click
   const handleConfirm = () => {
-    console.log("Confirmed", name, description, address, tele, website);
+    if (session && name && description && address && tele && website) {
+      console.log("token: ", session.verifiedToken, ", action: ", action);
+      //create booking
+      if (action === "create") {
+        toast.promise(
+          async () => {
+            await createCompany(
+              session.verifiedToken,
+              name,
+              address,
+              website,
+              description,
+              tele,
+            ).then((res) => {
+              if (res.success) {
+                if (session.user.role === "user") router.push("/user");
+                else router.push("/admin/company");
+              } else {
+                throw new Error(res.message);
+              }
+            });
+          },
+          {
+            loading: "Creating booking...",
+            success: "Created booking successfully.",
+            error: (err) => err.message || "Failed to create booking.",
+          }
+        );
+      }
+      //update booking
+      else {
+        const companyId = searchParams.get("id"); 
+        toast.promise( 
+          async () => {
+            await updateCompany(
+              session.verifiedToken,
+              companyId || "",
+              name,
+              address,
+              website,
+              description,
+              tele
+            ).then((res) => {
+              if (res.success) {
+                if (session.user.role === "user") router.push("/user");
+                else router.push("/admin/company");
+              } else {
+                throw new Error(res.message);
+              }
+            });
+          },
+          {
+            loading: "Creating booking...",
+            success: "Created booking successfully.",
+            error: (err) => err.message || "Failed to create booking.",
+          }
+        );
+      }
+    }
   };
 
   return (
@@ -100,7 +206,7 @@ export default function FormCompany() {
                 value={address}
                 onChange={handleAddress}
                 placeholder="Name of the Company"
-                className="text-sm md:text-lg"
+                className="texat-sm md:text-lg"
               />
             </div>
           </div>
@@ -108,13 +214,13 @@ export default function FormCompany() {
           {/* Form Text Input Telephone number */}
           <div className="flex flex-col items-center space-y-2">
             <div className="w-3/4 flex justify-start">
-            <label className="block text-base md:text-xl font-medium text-gray-700">
-              <h2 className="card-title text-base md:text-3xl font-bold">
-                {" "}
-                <Phone size={23} />
-                Telephone number
-              </h2>
-            </label>
+              <label className="block text-base md:text-xl font-medium text-gray-700">
+                <h2 className="card-title text-base md:text-3xl font-bold">
+                  {" "}
+                  <Phone size={23} />
+                  Telephone number
+                </h2>
+              </label>
             </div>
             <div className="w-3/4 bg-white rounded-md border border-storke">
               <TextField
@@ -131,13 +237,13 @@ export default function FormCompany() {
           {/* Form Text Input Website */}
           <div className="flex flex-col items-center space-y-2">
             <div className="w-3/4 flex justify-start">
-            <label className="block text-base md:text-xl font-medium text-gray-700">
-              <h2 className="card-title text-base md:text-3xl font-bold">
-                {" "}
-                <Link size={23} />
-                Website
-              </h2>
-            </label>
+              <label className="block text-base md:text-xl font-medium text-gray-700">
+                <h2 className="card-title text-base md:text-3xl font-bold">
+                  {" "}
+                  <Link size={23} />
+                  Website
+                </h2>
+              </label>
             </div>
             <div className="w-3/4 bg-white rounded-md border border-storke">
               <TextField

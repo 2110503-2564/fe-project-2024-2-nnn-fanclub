@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import FormCompany from "@/components/FormCompany";
+import FormBooking from "@/components/FormBooking";
 
 export default function NewBooking() {
   return (
@@ -11,7 +11,7 @@ export default function NewBooking() {
         role="admin"
       />
       {/* Content */}
-      <FormCompany/>
+      <FormBooking action="create"/>
     </main>
   );
 }

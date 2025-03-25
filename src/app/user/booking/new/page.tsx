@@ -11,7 +11,7 @@ export default function CreateBooking() {
         role="user"
       />
       {/* Content */}
-      <FormBooking />
+      <FormBooking action="create"/>
     </main>
   );
 }
