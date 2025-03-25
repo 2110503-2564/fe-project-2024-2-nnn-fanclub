@@ -5,6 +5,7 @@ import CardPanel from "@/components/CardPanel";
 import axios from "axios";
 import HomePage from "@/components/HomePage";
 import CarouselImg from "@/components/CarouselImg";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const [companies, setCompanies] = useState<CompanyModel[]>([]);
@@ -43,7 +44,7 @@ export default function Home() {
       <div className="flex flex-col items-center gap-y-4 flex-grow">
         <HomePage />
 
-        <CarouselImg/>
+        <CarouselImg />
         {/* Companies List */}
         {loading ? (
           <p>Loading...</p>
@@ -60,6 +61,7 @@ export default function Home() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

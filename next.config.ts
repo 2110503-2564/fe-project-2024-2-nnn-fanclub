@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   },
   images: {
-    domains: ["drive.google.com"],
+    domains: ["drive.google.com", "gravatar.com"],
   },
   async headers() {
     return [
