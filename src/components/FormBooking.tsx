@@ -11,8 +11,14 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
 import updateBooking from "@/libs/updateBooking";
 import getBooking from "@/libs/getBooking";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export default function FormBooking({ action }: { action: string }) {
   //(0)initial setup
@@ -73,11 +79,11 @@ export default function FormBooking({ action }: { action: string }) {
   const [selectedCompany, setSelectedCompany] = useState("");
   const [selectedCompantName, setSelectedCompanyName] = useState("loading");
   const [selectedDate, setSelectedDate] = useState<Dayjs>(
-    dayjs("2022-05-10T24:00:00")
+    dayjs("2022-05-10T17:00:00.000Z").utc()
   );
 
   const handleDateChange = (e: any) => {
-    setSelectedDate(e);
+    setSelectedDate(e.utc());
   };
 
   //(3)Handle confirm button click
@@ -91,7 +97,7 @@ export default function FormBooking({ action }: { action: string }) {
             await createBooking(
               session.verifiedToken,
               selectedCompany,
-              selectedDate.toISOString()
+              selectedDate.toDate().toISOString()
             ).then((res) => {
               if (res.success) {
                 if (session.user.role === "user") router.push("/user");
@@ -110,12 +116,13 @@ export default function FormBooking({ action }: { action: string }) {
       }
       //update booking
       else {
+        console.log(selectedDate.utc().toISOString());
         toast.promise(
           async () => {
             await updateBooking(
               session.verifiedToken,
               selectedCompany,
-              selectedDate.toISOString()
+              selectedDate.toDate().toISOString()
             ).then((res) => {
               if (res.success) {
                 if (session.user.role === "user") router.push("/user");
@@ -169,7 +176,7 @@ export default function FormBooking({ action }: { action: string }) {
             </label>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                value={selectedDate}
+                value={selectedDate.utc()}
                 onChange={handleDateChange}
                 className="text-sm md:text-lg mt-2 justify-items-center block w-3/4 px-4 py-2 bg-white rounded-md border border-storke"
               />

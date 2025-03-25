@@ -11,6 +11,12 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 interface ProfileCardProps {
   user: UserModel;
 }
@@ -156,7 +162,7 @@ export default function AdminManageBooking() {
                   <InterviewCard
                     key={index}
                     companyName={booking.company.name}
-                    bookingDate={dayjs(booking.apptDate).format("YYYY-MM-DD")}
+                    bookingDate={dayjs(booking.apptDate).utc().format("YYYY-MM-DD")}
                     name={booking.user.name}
                     onEdit={() => {
                       router.push(`/admin/booking/manage?id=${booking._id}`);
