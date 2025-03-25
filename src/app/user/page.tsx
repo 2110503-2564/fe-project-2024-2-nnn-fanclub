@@ -11,6 +11,12 @@ import { deleteBooking } from "@/libs/deleteBooking";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 interface ProfileCardProps {
   user: UserModel;
 }
@@ -140,7 +146,7 @@ export default function ProfileUser() {
                   key={index}
                   name="none"
                   companyName={booking.company.name}
-                  bookingDate={dayjs(booking.apptDate).format("YYYY-MM-DD")}
+                  bookingDate={dayjs(booking.apptDate).utc().format("YYYY-MM-DD")}
                   onEdit={() => {
                     router.push(`/user/booking/manage?id=${booking._id}`);
                   }}
