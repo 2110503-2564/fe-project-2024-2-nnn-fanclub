@@ -52,7 +52,6 @@ export default function FormCompany({ action }: { action: string }) {
               const obj = Array.isArray(company.data)
                 ? company.data[0]
                 : company.data;
-              console.log("obj: ", obj);
               setName(obj.name);
               setDescription(obj.description);
               setAddress(obj.address);
@@ -78,7 +77,6 @@ export default function FormCompany({ action }: { action: string }) {
   //(3)Handle confirm button click
   const handleConfirm = () => {
     if (session && name && description && address && tele && website) {
-      console.log("token: ", session.verifiedToken, ", action: ", action);
       //create booking
       if (action === "create") {
         toast.promise(

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Mail, KeyRound, CircleX } from 'lucide-react';
+import { Mail, KeyRound, CircleX, Lock } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -11,11 +11,12 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true);
     e.preventDefault();
     setError('');
-    console.log(email, password);
 
     const res = await signIn('credentials', {
       email,
@@ -25,6 +26,7 @@ export default function LoginPage() {
 
     if (res?.error) {
       setError(res.error);
+      setLoading(false);
     } else {
       router.push('/');
     }
@@ -46,7 +48,7 @@ export default function LoginPage() {
     <form onSubmit={handleSubmit} className="flex min-h-screen items-center justify-center bg-foreground">
       <div className="bg-c2 p-8 rounded-2xl shadow-xl w-96 text-center">
         <div className="flex justify-center">
-          <div className="w-24 h-24 rounded-full bg-c1">NNN</div>
+          <Lock size={30} />
         </div>
         <h2 className="text-xl font-bold mt-4">Welcome Back!</h2>
         { error && (
@@ -76,12 +78,12 @@ export default function LoginPage() {
         </div>
         <button className="btn mt-5 px-2 py-1 w-full md:px-4 md:py-2 bg-black text-white rounded-md text-xs hover:bg-white hover:text-black hover:border-black transition duration-500 ease-in-out" type="submit">
           <span className="flex items-center space-x-2">
-            <span className="text-sm">Sign-in</span>
+            <span className="text-sm">{ !loading ? "Sign-in" : "Sign-in ..." }</span>
           </span>
         </button>
         <div className="divider mt-6"></div>
         <p className="text-sm">
-          Don’t register?{' '}
+          Don’t have an account?{' '}
           <Link href="/auth/register" className="font-bold underline">Register here.</Link>
         </p>
       </div>

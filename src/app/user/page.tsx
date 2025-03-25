@@ -40,7 +40,6 @@ export default function ProfileUser() {
           throw new Error(`error : ${res.message}`);
         }
         setUserData(res.data as UserModel);
-        console.log("userData: ", userData);
       } catch (error) {
         console.error("Error fetching company data:", error);
       }
@@ -55,7 +54,6 @@ export default function ProfileUser() {
           throw new Error(`error : ${res.message}`);
         }
         setBooking(res);
-        console.log("booking User: ", booking);
       } catch (error) {
         console.error("Error fetching company data:", error);
       } finally {

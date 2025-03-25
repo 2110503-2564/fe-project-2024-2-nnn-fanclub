@@ -8,7 +8,6 @@ export default async function userLogin(email: string, password: string): Promis
         validateStatus: () => true
     })
     .then((res) => {
-        console.log(res.data)
         if (res.status >= 500) {
             return {
                 success: false,
